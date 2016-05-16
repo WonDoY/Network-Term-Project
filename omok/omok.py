@@ -18,9 +18,79 @@ def isSize(n): # 놓은 위치가 맞는지 확인
 def isEmpty(row,col):
     if(locate[row-1][col-1]>2): return True # 플레이어 돌은 0과 1 이므로 2보다크면빈자리
     return False
-#미구현        
-##def checkWin(P,row,col):# P:Player
-##        print(not)
+
+class queue:
+    lst=[]
+    def __init__(self):
+        self.lst=[]
+    def __init__(self,x,y):
+        self.lst=[]
+        self.lst.append([x,y])
+    def push(self, row,col):
+        self.lst.insert(0,[row,col])
+    def pop(self):
+        
+        a,b=self.lst.pop()
+        return a,b
+    def isEmpty(self):
+        if(len(self.lst)==0):return True
+        return False
+        
+#구현 check win
+def checkWin(P,row,col):# P:Player
+    
+    QXX=queue(row,col)#-
+    QXY=queue(row,col)#\
+    QYX=queue(row,col)#/
+    QYY=queue(row,col)#|
+    print(QXX.lst)
+    
+    cnt=0
+    visit=[[0 for x in range(13)] for y in range(13)]
+    visit[row][col]=1
+    while (not QXX.isEmpty()):#-        
+        ROW,COL=QXX.pop()        
+        cnt+=1
+        print("XX",cnt)
+        if(locate[ROW][COL-1]==P and visit[ROW][COL-1]==0 and COL-1>=0): visit[ROW][COL-1]=1;QXX.push(ROW,COL-1)
+        if(locate[ROW][COL+1]==P and visit[ROW][COL+1]==0 and COL+1<=12):visit[ROW][COL+1]=1;QXX.push(ROW,COL+1)
+    if(cnt==5): return True
+    
+    cnt=0
+    visit=[[0 for x in range(13)] for y in range(13)]
+    visit[row][col]=1
+    while (not QXY.isEmpty()):#\
+        ROW,COL=QXY.pop()
+        cnt+=1
+        print("XY",cnt,QXY.lst,ROW,COL)
+        if(locate[ROW-1][COL-1]==P and visit[ROW-1][COL-1]==0 and ROW-1>= 0 and COL-1>=0): visit[ROW-1][COL-1]=1;QXY.push(ROW-1,COL-1)
+        if(locate[ROW+1][COL+1]==P and visit[ROW+1][COL+1]==0 and ROW+1<= 12 and COL+1<=12): visit[ROW+1][COL+1]=1;QXY.push(ROW+1,COL+1)
+    if(cnt==5): return True
+
+    cnt=0
+    visit=[[0 for x in range(13)] for y in range(13)]
+    visit[row][col]=1
+    while (not QYX.isEmpty()):#/
+        ROW,COL=QYX.pop()
+        cnt+=1
+        print("YX",cnt)
+        if(locate[ROW-1][COL+1]==P and visit[ROW-1][COL+1]==0 and ROW-1>=0 and COL+1 <= 12): visit[ROW-1][COL+1]=1;QYX.push(ROW-1,COL+1)
+        if(locate[ROW+1][COL-1]==P and visit[ROW+1][COL-1]==0 and ROW+1<=12 and COL-1 >= 0): visit[ROW+1][COL-1]=1;QYX.push(ROW+1,COL-1)
+    if(cnt==5): return True
+
+    cnt=0
+    visit=[[0 for x in range(13)] for y in range(13)]
+    visit[row][col]=1
+    while (not QYY.isEmpty()):#|
+        ROW,COL=QYY.pop()
+        cnt+=1
+        print("YY",cnt)
+        if(locate[ROW-1][COL]==P and visit[ROW-1][COL]==0 and ROW-1>=0): visit[ROW-1][COL]=1; QYY.push(ROW-1,COL)
+        if(locate[ROW+1][COL]==P and visit[ROW+1][COL]==0 and ROW+1<=12):visit[ROW+1][COL]=1; QYY.push(ROW+1,COL)
+    if(cnt==5): return True
+
+    return False
+# 미구현
 ##def checkRule(P,row,col):
 
 locate=[[5 for i in range(13)] for j in range(13)] # 판 초기화
@@ -55,6 +125,7 @@ while running :
                 print("Player 2 input error")
     
     locate[row-1][col-1]=player # 위치에 돌을 놓는다
+    Winner=checkWin(player,row-1,col-1)
     if(Winner): #어떤 플레이어가 승리했을 시 
         print(player,'is Winner');
         while True:
