@@ -91,7 +91,72 @@ def checkWin(P,row,col):# P:Player
 
     return False
 # 미구현
-##def checkRule(P,row,col):
+# 막힌 수, 띄어진 수 구현 안됨. 
+def checkRule(P,row,col):
+    QXX=queue(row,col)#-
+    QXY=queue(row,col)#\
+    QYX=queue(row,col)#/
+    QYY=queue(row,col)#|    
+    #6개 경우의 수 - \ | /
+    cnt_1=0
+    visit=[[0 for x in range(13)] for y in range(13)]
+    visit[row][col]=1
+    while (not QXX.isEmpty()):#-        
+        ROW,COL=QXX.pop()        
+        cnt_1+=1
+        print("XX",cnt_1)
+        if(locate[ROW][COL-1]==P and visit[ROW][COL-1]==0 and COL-1>=0): visit[ROW][COL-1]=1;QXX.push(ROW,COL-1)
+        if(locate[ROW][COL+1]==P and visit[ROW][COL+1]==0 and COL+1<=12):visit[ROW][COL+1]=1;QXX.push(ROW,COL+1)
+    
+    
+    cnt_2=0
+    visit=[[0 for x in range(13)] for y in range(13)]
+    visit[row][col]=1
+    while (not QXY.isEmpty()):#\
+        ROW,COL=QXY.pop()
+        cnt_2+=1
+        print("XY",cnt_2,QXY.lst,ROW,COL)
+        if(locate[ROW-1][COL-1]==P and visit[ROW-1][COL-1]==0 and ROW-1>= 0 and COL-1>=0): visit[ROW-1][COL-1]=1;QXY.push(ROW-1,COL-1)
+        if(locate[ROW+1][COL+1]==P and visit[ROW+1][COL+1]==0 and ROW+1<= 12 and COL+1<=12): visit[ROW+1][COL+1]=1;QXY.push(ROW+1,COL+1)
+    
+
+    cnt_3=0
+    visit=[[0 for x in range(13)] for y in range(13)]
+    visit[row][col]=1
+    while (not QYX.isEmpty()):#/
+        ROW,COL=QYX.pop()
+        cnt_3+=1
+        print("YX",cnt_3)
+        if(locate[ROW-1][COL+1]==P and visit[ROW-1][COL+1]==0 and ROW-1>=0 and COL+1 <= 12): visit[ROW-1][COL+1]=1;QYX.push(ROW-1,COL+1)
+        if(locate[ROW+1][COL-1]==P and visit[ROW+1][COL-1]==0 and ROW+1<=12 and COL-1 >= 0): visit[ROW+1][COL-1]=1;QYX.push(ROW+1,COL-1)
+    
+
+    cnt_4=0
+    visit=[[0 for x in range(13)] for y in range(13)]
+    visit[row][col]=1
+    while (not QYY.isEmpty()):#|
+        ROW,COL=QYY.pop()
+        cnt_4+=1
+        print("YY",cnt_4)
+        if(locate[ROW-1][COL]==P and visit[ROW-1][COL]==0 and ROW-1>=0): visit[ROW-1][COL]=1; QYY.push(ROW-1,COL)
+        if(locate[ROW+1][COL]==P and visit[ROW+1][COL]==0 and ROW+1<=12):visit[ROW+1][COL]=1; QYY.push(ROW+1,COL)
+    print(cnt_1,cnt_2,cnt_3,cnt_4)
+    if(cnt_1==3 and cnt_2==3): return False
+    if(cnt_1==3 and cnt_3==3): return False
+    if(cnt_1==3 and cnt_4==3): return False
+    if(cnt_2==3 and cnt_3==3): return False
+    if(cnt_2==3 and cnt_4==3): return False
+    if(cnt_3==3 and cnt_4==3): return False
+
+    if(cnt_1==4 and cnt_2==4): return False
+    if(cnt_1==4 and cnt_3==4): return False
+    if(cnt_1==4 and cnt_4==4): return False
+    if(cnt_2==4 and cnt_3==4): return False
+    if(cnt_2==4 and cnt_4==4): return False
+    if(cnt_3==4 and cnt_4==4): return False
+
+    return True      
+    
 
 locate=[[5 for i in range(13)] for j in range(13)] # 판 초기화
 #플레이어 이름은 리스트로 이름, 돌번호 로 매핑 시킬 수 있기때문에 나중에 작업.
@@ -109,7 +174,12 @@ while running :
                 row,col=(input("돌을 놓을 자리를 입력 (행 열) : ").split())
                 row=int(row); col=int(col)
                 print(isSize(row),isSize(col))
-                if(isSize(row) and isSize(col) and isEmpty(row,col)): error=False;
+                print(checkRule(player,row-1,col-1))
+                if(isSize(row) and isSize(col) and isEmpty(row,col)):
+                    if(checkRule(player,row-1,col-1)):
+                        error=False;
+                    else:
+                        print("Player 1 Rule Break")
                 else: print("already",row,col)
             except:
                 print("Player 1 input error")
@@ -128,10 +198,14 @@ while running :
     Winner=checkWin(player,row-1,col-1)
     if(Winner): #어떤 플레이어가 승리했을 시 
         print(player,'is Winner');
-        while True:
-            if(int(input("continue play game? 1=y"))==1): break
+## error 수정 요함        
+        while True: 
+            if(int(input("continue play game? 1=y"))==1):
+                locate=[[5 for i in range(13)] for j in range(13)] # 판 초기화
+                break
             else:
                 if(int(input("진짜끝냄? 그럼 1 입력해"))==1): running=False;break
+## error 수정 요함
     else:
         player=(player+1)%2 # next player
 
