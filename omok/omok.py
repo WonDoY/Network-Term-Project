@@ -6,12 +6,12 @@
 # player가 두는 돌은 0->player 번호로 맵핑
 #init
 def display():    # 판을 보여줌 13x13
-    for i in range(13):
-        for j in range(13):
+    for i in range(15):
+        for j in range(15):
             print(locate[i][j],end=" ")
         print()
 def isSize(n): # 놓은 위치가 맞는지 확인
-    if(1 <= n and n <= 13 and int==type(n)):
+    if(2 <= n and n <= 14 and int==type(n)):
         #판안에 존재하며 타입은 인트형이라면
         return True
     return False
@@ -158,7 +158,13 @@ def checkRule(P,row,col):
     return True      
     
 
-locate=[[5 for i in range(13)] for j in range(13)] # 판 초기화
+locate=[[5 for i in range(15)] for j in range(15)] # 벽은 9로 채우고 안쪽은 5로 채움
+for i in range(15):
+    for j in range(15):
+        if i==0 or j==0:
+            locate[i][j]=9
+        if i==14 or j==14:
+            locate[i][j]=9 # 판 초기화
 #플레이어 이름은 리스트로 이름, 돌번호 로 매핑 시킬 수 있기때문에 나중에 작업.
 player=0    
 row,col=-1,-1 # init input row col
@@ -172,12 +178,13 @@ while running :
         while(error):
             try:
                 row,col=(input("돌을 놓을 자리를 입력 (행 열) : ").split())
-                row=int(row); col=int(col)
+                row=int(row)+1; col=int(col)+1
                 print(isSize(row),isSize(col))
                 print(checkRule(player,row-1,col-1))
                 if(isSize(row) and isSize(col) and isEmpty(row,col)):
                     if(checkRule(player,row-1,col-1)):
                         error=False;
+                    elif(isSize(row) == False or isSize(col) == False or isEmpty(row,col) == False): print("놓을 수 있는 범위 밖입니다")
                     else:
                         print("Player 1 Rule Break")
                 else: print("already",row,col)
@@ -188,8 +195,9 @@ while running :
         while(error):
             try:
                 row,col=(input("돌을 놓을 자리를 입력 (행 열) : ").split())
-                row=int(row); col=int(col)
+                row=int(row)+1; col=int(col)+1
                 if(isSize(row) and isSize(col) and isEmpty(row,col)): error=False;
+                elif(isSize(row) == False or isSize(col) == False or isEmpty(row,col) == False): print("놓을 수 있는 범위 밖입니다")
                 else: print("already",row,col)
             except:
                 print("Player 2 input error")
