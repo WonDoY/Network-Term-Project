@@ -19,7 +19,7 @@ def isEmpty(row,col):
     if(locate[row-1][col-1]>2): return True # 플레이어 돌은 0과 1 이므로 2보다크면빈자리
     return False
 
-class queue:
+class queue:   # 승리 판별 및 금수 체크를 위한 queue
     lst=[]
     def __init__(self):
         self.lst=[]
@@ -46,7 +46,7 @@ def checkWin(P,row,col):# P:Player
     print(QXX.lst)
     
     cnt=0
-    visit=[[0 for x in range(13)] for y in range(13)]
+    visit=[[0 for x in range(15)] for y in range(15)]
     visit[row][col]=1
     while (not QXX.isEmpty()):#-        
         ROW,COL=QXX.pop()        
@@ -57,7 +57,7 @@ def checkWin(P,row,col):# P:Player
     if(cnt==5): return True
     
     cnt=0
-    visit=[[0 for x in range(13)] for y in range(13)]
+    visit=[[0 for x in range(15)] for y in range(15)]
     visit[row][col]=1
     while (not QXY.isEmpty()):#\
         ROW,COL=QXY.pop()
@@ -68,7 +68,7 @@ def checkWin(P,row,col):# P:Player
     if(cnt==5): return True
 
     cnt=0
-    visit=[[0 for x in range(13)] for y in range(13)]
+    visit=[[0 for x in range(15)] for y in range(15)]
     visit[row][col]=1
     while (not QYX.isEmpty()):#/
         ROW,COL=QYX.pop()
@@ -79,7 +79,7 @@ def checkWin(P,row,col):# P:Player
     if(cnt==5): return True
 
     cnt=0
-    visit=[[0 for x in range(13)] for y in range(13)]
+    visit=[[0 for x in range(15)] for y in range(15)]
     visit[row][col]=1
     while (not QYY.isEmpty()):#|
         ROW,COL=QYY.pop()
@@ -99,7 +99,7 @@ def checkRule(P,row,col):
     QYY=queue(row,col)#|    
     #6개 경우의 수 - \ | /
     cnt_1=0
-    visit=[[0 for x in range(13)] for y in range(13)]
+    visit=[[0 for x in range(15)] for y in range(15)]
     visit[row][col]=1
     while (not QXX.isEmpty()):#-        
         ROW,COL=QXX.pop()        
@@ -110,7 +110,7 @@ def checkRule(P,row,col):
     
     
     cnt_2=0
-    visit=[[0 for x in range(13)] for y in range(13)]
+    visit=[[0 for x in range(15)] for y in range(15)]
     visit[row][col]=1
     while (not QXY.isEmpty()):#\
         ROW,COL=QXY.pop()
@@ -121,7 +121,7 @@ def checkRule(P,row,col):
     
 
     cnt_3=0
-    visit=[[0 for x in range(13)] for y in range(13)]
+    visit=[[0 for x in range(15)] for y in range(15)]
     visit[row][col]=1
     while (not QYX.isEmpty()):#/
         ROW,COL=QYX.pop()
@@ -132,7 +132,7 @@ def checkRule(P,row,col):
     
 
     cnt_4=0
-    visit=[[0 for x in range(13)] for y in range(13)]
+    visit=[[0 for x in range(15)] for y in range(15)]
     visit[row][col]=1
     while (not QYY.isEmpty()):#|
         ROW,COL=QYY.pop()
@@ -158,13 +158,13 @@ def checkRule(P,row,col):
     return True      
     
 
-locate=[[5 for i in range(15)] for j in range(15)] # 벽은 9로 채우고 안쪽은 5로 채움
+locate=[[5 for i in range(15)] for j in range(15)] # 벽은 9로 채우고 안쪽은 5로 채워서 판 초기화
 for i in range(15):
     for j in range(15):
         if i==0 or j==0:
             locate[i][j]=9
         if i==14 or j==14:
-            locate[i][j]=9 # 판 초기화
+            locate[i][j]=9 
 #플레이어 이름은 리스트로 이름, 돌번호 로 매핑 시킬 수 있기때문에 나중에 작업.
 player=0    
 row,col=-1,-1 # init input row col
@@ -184,7 +184,7 @@ while running :
                 if(isSize(row) and isSize(col) and isEmpty(row,col)):
                     if(checkRule(player,row-1,col-1)):
                         error=False;
-                    elif(isSize(row) == False or isSize(col) == False or isEmpty(row,col) == False): print("놓을 수 있는 범위 밖입니다")
+                    elif(isSize(row) == False or isSize(col) == False or isEmpty(row,col) == False): print("놓을 수 있는 범위 밖입니다") #범위 밖 예외처리
                     else:
                         print("Player 1 Rule Break")
                 else: print("already",row,col)
