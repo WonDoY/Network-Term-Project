@@ -55,8 +55,17 @@ def checkWin(P,row,col):# P:Player
         ROW,COL=QXX.pop()        
         cnt+=1
         print("XX",cnt)
-        if(locate[ROW][COL-1]==P and visit[ROW][COL-1]==0 and COL-1>=0): visit[ROW][COL-1]=1;QXX.push(ROW,COL-1)
-        if(locate[ROW][COL+1]==P and visit[ROW][COL+1]==0 and COL+1<=12):visit[ROW][COL+1]=1;QXX.push(ROW,COL+1)
+
+        try :
+            if(locate[ROW][COL-1]==P and visit[ROW][COL-1]==0 and COL-1>=0):  visit[ROW][COL-1]=1;QXX.push(ROW,COL-1)
+        except:
+            print()
+        try:
+            if(locate[ROW][COL+1]==P and visit[ROW][COL+1]==0 and COL+1<=12):visit[ROW][COL+1]=1;QXX.push(ROW,COL+1)
+        except:
+            print()
+        
+        
     if(cnt==5): return True
     
     cnt=0
@@ -66,8 +75,14 @@ def checkWin(P,row,col):# P:Player
         ROW,COL=QXY.pop()
         cnt+=1
         print("XY",cnt,QXY.lst,ROW,COL)
-        if(locate[ROW-1][COL-1]==P and visit[ROW-1][COL-1]==0 and ROW-1>= 0 and COL-1>=0): visit[ROW-1][COL-1]=1;QXY.push(ROW-1,COL-1)
-        if(locate[ROW+1][COL+1]==P and visit[ROW+1][COL+1]==0 and ROW+1<= 12 and COL+1<=12): visit[ROW+1][COL+1]=1;QXY.push(ROW+1,COL+1)
+        try:
+            if(locate[ROW-1][COL-1]==P and visit[ROW-1][COL-1]==0 and ROW-1>= 0 and COL-1>=0): visit[ROW-1][COL-1]=1;QXY.push(ROW-1,COL-1)
+        except:
+            print()
+        try:
+            if(locate[ROW+1][COL+1]==P and visit[ROW+1][COL+1]==0 and ROW+1<= 12 and COL+1<=12): visit[ROW+1][COL+1]=1;QXY.push(ROW+1,COL+1)
+        except:
+            print()
     if(cnt==5): return True
 
     cnt=0
@@ -77,8 +92,14 @@ def checkWin(P,row,col):# P:Player
         ROW,COL=QYX.pop()
         cnt+=1
         print("YX",cnt)
-        if(locate[ROW-1][COL+1]==P and visit[ROW-1][COL+1]==0 and ROW-1>=0 and COL+1 <= 12): visit[ROW-1][COL+1]=1;QYX.push(ROW-1,COL+1)
-        if(locate[ROW+1][COL-1]==P and visit[ROW+1][COL-1]==0 and ROW+1<=12 and COL-1 >= 0): visit[ROW+1][COL-1]=1;QYX.push(ROW+1,COL-1)
+        try:
+            if(locate[ROW-1][COL+1]==P and visit[ROW-1][COL+1]==0 and ROW-1>=0 and COL+1 <= 12): visit[ROW-1][COL+1]=1;QYX.push(ROW-1,COL+1)
+        except:
+            print()
+        try:
+            if(locate[ROW+1][COL-1]==P and visit[ROW+1][COL-1]==0 and ROW+1<=12 and COL-1 >= 0): visit[ROW+1][COL-1]=1;QYX.push(ROW+1,COL-1)
+        except:
+            print()
     if(cnt==5): return True
 
     cnt=0
@@ -88,8 +109,14 @@ def checkWin(P,row,col):# P:Player
         ROW,COL=QYY.pop()
         cnt+=1
         print("YY",cnt)
-        if(locate[ROW-1][COL]==P and visit[ROW-1][COL]==0 and ROW-1>=0): visit[ROW-1][COL]=1; QYY.push(ROW-1,COL)
-        if(locate[ROW+1][COL]==P and visit[ROW+1][COL]==0 and ROW+1<=12):visit[ROW+1][COL]=1; QYY.push(ROW+1,COL)
+        try:
+            if(locate[ROW-1][COL]==P and visit[ROW-1][COL]==0 and ROW-1>=0): visit[ROW-1][COL]=1; QYY.push(ROW-1,COL)
+        except:
+            print()
+        try:
+            if(locate[ROW+1][COL]==P and visit[ROW+1][COL]==0 and ROW+1<=12):visit[ROW+1][COL]=1; QYY.push(ROW+1,COL)
+        except:
+            print()
     if(cnt==5): return True
 
     return False
