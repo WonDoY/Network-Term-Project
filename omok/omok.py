@@ -110,10 +110,10 @@ def checkRule(P,row,col):
         print("XX",Jump_1)
         if(locate[ROW][COL-1]==P and visit[ROW][COL-1]==0 and COL-1>=0):visit[ROW][COL-1]=1;QXX.push(ROW,COL-1)
         if(locate[ROW][COL+1]==P and visit[ROW][COL+1]==0 and COL+1<=12):visit[ROW][COL+1]=1;QXX.push(ROW,COL+1)
-        if(locate[ROW][COL-3]==P and visit[ROW][COL-3]==0 and COL-3>=0):visit[ROW][COL-3]=1;QXX.push(ROW,COL-3)
-        if(locate[ROW][COL+3]==P and visit[ROW][COL+3]==0 and COL+3<=12):visit[ROW][COL+3]=1;QXX.push(ROW,COL+3)
-        if(locate[ROW][COL-4]==P and visit[ROW][COL-4]==0 and COL-4>=0):visit[ROW][COL-4]=1;QXX.push(ROW,COL-4)
-        if(locate[ROW][COL+4]==P and visit[ROW][COL+4]==0 and COL+4<=12):visit[ROW][COL+4]=1;QXX.push(ROW,COL+4)
+        if(locate[ROW][COL-3]==P and visit[ROW][COL-3]==0 and COL-3>=2):visit[ROW][COL-3]=1;QXX.push(ROW,COL-3)
+        if(locate[ROW][COL+3]==P and visit[ROW][COL+3]==0 and COL+3<=10):visit[ROW][COL+3]=1;QXX.push(ROW,COL+3)
+        if(locate[ROW][COL-4]==P and visit[ROW][COL-4]==0 and COL-4>=3):visit[ROW][COL-4]=1;QXX.push(ROW,COL-4)
+        if(locate[ROW][COL+4]==P and visit[ROW][COL+4]==0 and COL+4<=9):visit[ROW][COL+4]=1;QXX.push(ROW,COL+4)
         
 
     Jump_2=0
@@ -128,10 +128,10 @@ def checkRule(P,row,col):
         print("XY",Jump_2)
         if(locate[ROW-1][COL-1]==P and visit[ROW-1][COL-1]==0 and ROW-1>= 0 and COL-1>=0): visit[ROW-1][COL-1]=1;QXY.push(ROW-1,COL-1)
         if(locate[ROW+1][COL+1]==P and visit[ROW+1][COL+1]==0 and ROW+1<= 12 and COL+1<=12): visit[ROW+1][COL+1]=1;QXY.push(ROW+1,COL+1)
-        if(locate[ROW-3][COL-3]==P and locate[ROW-3][COL-3]==0 and ROW-3>=0 and COL-3>=0): visit[ROW-3][COL-3]=1;QXX.push(ROW-3,COL-3)
-        if(locate[ROW+3][COL+3]==P and locate[ROW+3][COL+3]==0 and ROW+3<=12 and COL+3<=12): visit[ROW+3][COL+3]=1;QXX.push(ROW+3,COL+3)
-        if(locate[ROW-4][COL-4]==P and locate[ROW-4][COL-4]==0 and ROW-4>=0 and COL-4>=0): visit[ROW-4][COL-4]=1;QXX.push(ROW-4,COL-4)
-        if(locate[ROW+4][COL+4]==P and locate[ROW+4][COL+4]==0 and ROW+4<=12 and COL+4<=12): visit[ROW+4][COL+4]=1;QXX.push(ROW+4,COL+4)
+        if(locate[ROW-3][COL-3]==P and locate[ROW-3][COL-3]==0 and ROW-3>=2 and COL-3>=0): visit[ROW-3][COL-3]=1;QXX.push(ROW-3,COL-3)
+        if(locate[ROW+3][COL+3]==P and locate[ROW+3][COL+3]==0 and ROW+3<=10 and COL+3<=12): visit[ROW+3][COL+3]=1;QXX.push(ROW+3,COL+3)
+        if(locate[ROW-4][COL-4]==P and locate[ROW-4][COL-4]==0 and ROW-4>=3 and COL-4>=0): visit[ROW-4][COL-4]=1;QXX.push(ROW-4,COL-4)
+        if(locate[ROW+4][COL+4]==P and locate[ROW+4][COL+4]==0 and ROW+4<=9 and COL+4<=12): visit[ROW+4][COL+4]=1;QXX.push(ROW+4,COL+4)
 
     
     Jump_3=0
@@ -146,10 +146,10 @@ def checkRule(P,row,col):
         print("YX",Jump_3)
         if(locate[ROW-1][COL+1]==P and visit[ROW-1][COL+1]==0 and ROW-1>=0 and COL+1 <= 12): visit[ROW-1][COL+1]=1;QYX.push(ROW-1,COL+1)
         if(locate[ROW+1][COL-1]==P and visit[ROW+1][COL-1]==0 and ROW+1<=12 and COL-1 >= 0): visit[ROW+1][COL-1]=1;QYX.push(ROW+1,COL-1)
-        if(locate[ROW-3][COL+3]==P and visit[ROW-3][COL+3]==0 and ROW-3>=0 and COL+3 <= 12): visit[ROW-3][COL+3]=1;QXX.push(ROW-3,COL+3)
-        if(locate[ROW+3][COL-3]==P and visit[ROW+3][COL-3]==0 and ROW+3<=12 and COL-3 >= 0): visit[ROW+3][COL-3]=1;QXX.push(ROW+3,COL-3)
-        if(locate[ROW-4][COL+4]==P and visit[ROW-4][COL+4]==0 and ROW-4>=0 and COL+4 <= 12): visit[ROW-4][COL+4]=1;QXX.push(ROW-4,COL+4)
-        if(locate[ROW+4][COL-4]==P and visit[ROW+4][COL-4]==0 and ROW+4<=12 and COL-4 >= 0): visit[ROW+4][COL-4]=1;QXX.push(ROW+4,COL-4)
+        if(locate[ROW-3][COL+3]==P and visit[ROW-3][COL+3]==0 and ROW-3>=2 and COL+3 <= 12): visit[ROW-3][COL+3]=1;QXX.push(ROW-3,COL+3)
+        if(locate[ROW+3][COL-3]==P and visit[ROW+3][COL-3]==0 and ROW+3<=10 and COL-3 >= 0): visit[ROW+3][COL-3]=1;QXX.push(ROW+3,COL-3)
+        if(locate[ROW-4][COL+4]==P and visit[ROW-4][COL+4]==0 and ROW-4>=3 and COL+4 <= 12): visit[ROW-4][COL+4]=1;QXX.push(ROW-4,COL+4)
+        if(locate[ROW+4][COL-4]==P and visit[ROW+4][COL-4]==0 and ROW+4<=9 and COL-4 >= 0): visit[ROW+4][COL-4]=1;QXX.push(ROW+4,COL-4)
     
 
     Jump_4=0
@@ -164,10 +164,10 @@ def checkRule(P,row,col):
         print("YY",Jump_4)
         if(locate[ROW-1][COL]==P and visit[ROW-1][COL]==0 and ROW-1>=0): visit[ROW-1][COL]=1; QYY.push(ROW-1,COL)
         if(locate[ROW+1][COL]==P and visit[ROW+1][COL]==0 and ROW+1<=12): visit[ROW+1][COL]=1; QYY.push(ROW+1,COL)
-        if(locate[ROW-3][COL]==P and visit[ROW-3][COL]==0 and ROW-3>=0): visit[ROW-3][COL]=1; QYY.push(ROW-3,COL)
-        if(locate[ROW+3][COL]==P and visit[ROW+3][COL]==0 and ROW+3<=12): visit[ROW+3][COL]=1; QYY.push(ROW+3,COL)
-        if(locate[ROW-4][COL]==P and visit[ROW-4][COL]==0 and ROW-4>=0): visit[ROW-4][COL]=1; QYY.push(ROW-4,COL)
-        if(locate[ROW+4][COL]==P and visit[ROW+4][COL]==0 and ROW+4<=12): visit[ROW+4][COL]=1; QYY.push(ROW+4,COL)
+        if(locate[ROW-3][COL]==P and visit[ROW-3][COL]==0 and ROW-3>=2): visit[ROW-3][COL]=1; QYY.push(ROW-3,COL)
+        if(locate[ROW+3][COL]==P and visit[ROW+3][COL]==0 and ROW+3<=10): visit[ROW+3][COL]=1; QYY.push(ROW+3,COL)
+        if(locate[ROW-4][COL]==P and visit[ROW-4][COL]==0 and ROW-4>=3): visit[ROW-4][COL]=1; QYY.push(ROW-4,COL)
+        if(locate[ROW+4][COL]==P and visit[ROW+4][COL]==0 and ROW+4<=9): visit[ROW+4][COL]=1; QYY.push(ROW+4,COL)
 
         
     print(cnt_1,cnt_2,cnt_3,cnt_4)
