@@ -29,8 +29,16 @@ class Omok(models.Model):
     row, col = -1,-1
     Winner=False
     running =True
-    def __str__(self):
-        return self.locate
+    locateStr=""
+    def locateString(self):
+        self.locateStr=""
+        for x in range(13):
+            for y in range(13):
+                self.locateStr+="{}".format(str(self.locate[x][y]))
+            self.locateStr+="\n"
+        self.locateStr+="<P>"
+
+        return self.locateStr
 
         
     def __init__(self):
