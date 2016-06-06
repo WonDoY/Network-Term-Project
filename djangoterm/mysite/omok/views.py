@@ -1,11 +1,16 @@
 from django.shortcuts import render
 from .models import Omok
 # Create your views here.
-def index(request):
-	return render(request, 'omok/index.html')
+def home(request):
+	return render(request, 'omok/home.html')
 
 def game(request):
 
 	omok = Omok()
-	omok.play()
-	return render(request, 'omok/game.html')
+	st = ""
+	for x in range(13):
+		for y in range(13):
+			st += "{}".format((omok.locate[x][y]))
+		st += '<br>'
+	
+	return httpResponse(st)

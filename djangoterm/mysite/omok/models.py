@@ -29,6 +29,10 @@ class Omok(models.Model):
     row, col = -1,-1
     Winner=False
     running =True
+    def __str__(self):
+        return self.locate
+
+        
     def __init__(self):
         self.locate=[[5 for i in range(13)] for j in range(13)] # 판 초기화    
         self.player=0    
@@ -48,9 +52,9 @@ class Omok(models.Model):
                         self.row,self.col=(input("돌을 놓을 자리를 입력 (행 열) : ").split())
                         self.row=int(self.row); self.col=int(self.col)
                         
-                        print("!!!!!!!!!!!!!!!!!!!!!!!!")
+                        
                         if(self.isSize(self.row) and self.isSize(self.col) and self.isEmpty(self.row,self.col)):
-                            print("@@@@@@@@@@@@@@")
+                            
                             if(self.checkRule(self.player,self.row-1,self.col-1)):
                                 error=False;
                             else:
@@ -64,8 +68,10 @@ class Omok(models.Model):
                     try:
                         self.row,self.col=(input("돌을 놓을 자리를 입력 (행 열) : ").split())
                         self.row=int(self.row); self.col=int(self.col)
-                        if(self.isSize(self.row) and self.isSize(self.col) and self.isEmpty(self.row,self.col)): error=False;
-                        else: print("already",self.row,self.col)
+                        if(self.isSize(self.row) and self.isSize(self.col) and self.isEmpty(self.row,self.col)): 
+                            error=False;
+                        else: 
+                            print("already",self.row,self.col)
                     except:
                         print("self.Player 2 input error")
 
@@ -85,6 +91,7 @@ class Omok(models.Model):
                 ## error 수정 요함
             else:
                 self.player=(self.player+1)%2 # next self.player
+
 
             
 
