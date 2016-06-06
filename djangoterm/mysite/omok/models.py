@@ -26,11 +26,25 @@ class Queue:
 class Omok(models.Model):
     locate = []
     player = 0
+    inrow = models.Integer
     row, col = -1,-1
     Winner=False
     running =True
+
+    locateStr=""
+    def locateString(self):
+        self.locateStr=""
+        for x in range(13):
+            for y in range(13):
+                self.locateStr+="{}".format(str(self.locate[x][y]))
+            self.locateStr+="3"
+        
+
+        return self.locateStr
+
     def __str__(self):
         return self.locate
+
 
         
     def __init__(self):
@@ -43,57 +57,51 @@ class Omok(models.Model):
     
     def play(self):
 
-        while self.running :
-            error=True
+        while self.running :            
             self.display()
-            if(self.player==0):
-                while(error):
-                    try:
-                        self.row,self.col=(input("돌을 놓을 자리를 입력 (행 열) : ").split())
-                        self.row=int(self.row); self.col=int(self.col)
+            self.put()
+            self.winner()
+
+    def put(self):      
+        if(self.player==0): # 
+            error=True
+            while(error):
+                try:
+                    self.row,self.col=(input("돌을 놓을 자리를 입력 (행 열) : ").split())
+                    self.row=int(self.row); self.col=int(self.col)
                         
                         
-                        if(self.isSize(self.row) and self.isSize(self.col) and self.isEmpty(self.row,self.col)):
+                    if(self.isSize(self.row) and self.isSize(self.col) and self.isEmpty(self.row,self.col)):
                             
-                            if(self.checkRule(self.player,self.row-1,self.col-1)):
-                                error=False;
-                            else:
-                                print("self.Player 1 Rule Break")
-                        else: print("already",self.row,self.col)
-                    except:
-                         print("self.Player 1 input error")
-
-            elif(self.player==1):
-                while(error):
-                    try:
-                        self.row,self.col=(input("돌을 놓을 자리를 입력 (행 열) : ").split())
-                        self.row=int(self.row); self.col=int(self.col)
-                        if(self.isSize(self.row) and self.isSize(self.col) and self.isEmpty(self.row,self.col)): 
+                        if(self.checkRule(self.player,self.row-1,self.col-1)):
                             error=False;
-                        else: 
-                            print("already",self.row,self.col)
-                    except:
-                        print("self.Player 2 input error")
+                        else:
+                            print("self.Player 1 Rule Break")
+                    else: print("already",self.row,self.col)
+                except:
+                     print("self.Player 1 input error")
 
-            self.locate[self.row-1][self.col-1]=self.player # 위치에 돌을 놓는다
-            self.Winner=self.checkWin(self.player,self.row-1,self.col-1)
-            if(self.Winner): #어떤 플레이어가 승리했을 시 
-                print(self.player,'is Winner');
-            ## error 수정 요함        
-                while True: 
-                    if(int(input("continue play game? 1=y"))==1):
-                        self.locate=[[5 for i in range(13)] for j in range(13)] # 판 초기화
-                        break
-                    else:
-                        if(int(input("진짜끝냄? 그럼 1 입력해"))==1): self.running=False;break
+        elif(self.player==1):
+            while(error):
+                try:
+                    self.row,self.col=(input("돌을 놓을 자리를 입력 (행 열) : ").split())
+                    self.row=int(self.row); self.col=int(self.col)
+                    if(self.isSize(self.row) and self.isSize(self.col) and self.isEmpty(self.row,self.col)): 
+                        error=False;
+                    else: 
+                        print("already",self.row,self.col)
+                except:
+                    print("self.Player 2 input error")  
 
-                print("Omok is Terminated...")
-                ## error 수정 요함
-            else:
-                self.player=(self.player+1)%2 # next self.player
-
-
+        self.locate[self.row-1][self.col-1]=self.player # 위치에 돌을 놓는다  
             
+    def winner(self):
+        self.Winner=self.checkWin(self.player,self.row-1,self.col-1)
+        if(self.Winner): #어떤 플레이어가 승리했을 시 
+            print(self.player,'is Winner');self.running=False
+        else:
+            self.player=(self.player+1)%2 # next self.player
+
 
 
     def display(self):    # 판을 보여줌 13x13
