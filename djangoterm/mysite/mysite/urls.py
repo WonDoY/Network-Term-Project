@@ -8,6 +8,7 @@ urlpatterns = [
 
     # omok
     url(r'^', include('omok.urls')),
+    
     #localhost:8000으로 요청이 들어오면 omok.urls로 전달
     url(r'^admin/', include(admin.site.urls)),
 ]

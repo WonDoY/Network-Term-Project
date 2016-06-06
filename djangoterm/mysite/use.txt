@@ -63,3 +63,75 @@ class Candidate(models.Model):
     introduction = models.TextField()
     area = models.CharField(max_length=15)
     party_number = models.IntegerField(default=1)
+
+
+###############################
+    모델을 DB에 저장하기 위한 준비 과정
+mysite/settings.py - INSTALLED_APPS 리스트에 elections(앱이름) 추가
+mysite 폴더로 이동 후 python manage.py makemigrations 입력
+python manage.py migrate로 DB에 공간 만들기
+#C\Code\mysite\mysite\settings.py
+...
+INSTALLED_APPS = [
+    ...,
+    'elections' #추가
+]
+...
+
+
+
+
+###############################
+admin으로 접속
+admin 사용자 만들기
+프로젝트 폴더로 이동
+python manage.py createsuperuser 실행
+유저 이름과 email, password 설정
+서버 실행
+python manage.py runserver
+admin으로 접속
+브라우저에서 admin:localhost:8000/admin으로 접속
+1에서 만든 사용자로 접속
+Candidate 등록
+app폴더의 admin.py에 model에서 정의한 Candidate를 regist
+브라우저를 새로고침 하면 Candidate가 반영됩니다.
+Candidate - ADD CANDIDATE - 내용을 추가하고 SAVE -> object가 추가됩니다.
+#C\Code\mysite\elections\admin.py
+from django.contrib import admin
+from .models import Candidate
+
+admin.site.register(Candidate)
+object를 구분하는 방법
+python에서는 object를 표현하는 문자열을 정의할 때는 __str__메소드를 오버라이딩합니다. 예를 들어 위에서 등록한 Candidate의 이름으로 object를 표현하고 싶은 경우,
+#C\Code\mysite\elections\models.py
+from django.db import models
+
+class Candidate(models.Model):
+    ...
+    def __str__(self):
+        return self.name #object를 출력하면 name이 보입니다.
+로 수정한 후, 브라우저를 새로고침 하면 후보자 이름이 보입니다.
+
+
+
+
+
+###############################
+DB에 모델이 저장된 구조
+Candidate 테이블에서 각 데이터 필드는 column(열)으로, 각 Candidate의 정보는 row(행)으로 저장되어 있습니다.
+
+데이터에 접근하는 방법
+Candidate 테이블에 등록한 정보를 보기 위해서는
+
+#C\Code\mysite\elections\views.py
+...
+from .models import Candidate #models에 정의된 Candidate를 import 
+
+def index(request):
+    candidates = Candidate.objects.all() #Candidate에 있는 모든 객체를 불러옵니다
+    str = "" #마지막에 return해 줄 문자열입니다.
+    for candidate in candidates:
+        str += "{}기호 {}번 ({})<BR>".format(candidate.name, candidate.party_number, candidate.area) #<BR>은 html에서 다음 줄로 이동하기 위해 쓰입니다.
+        str += candidate.introduction + "<P>" #<P>는 html에서 단락을 바꾸기 위해 쓰입니다.
+    return HttpResponse(str)
+
