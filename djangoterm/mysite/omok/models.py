@@ -32,6 +32,7 @@ class Omok(models.Model):
     running =True
 
     locateStr=""
+    errorstring=""
     def locateString(self):
         self.locateStr=""
         for x in range(13):
@@ -53,6 +54,7 @@ class Omok(models.Model):
         self.row,self.col=-1,-1 # init input self.row self.col
         self.Winner=False # 승리를 판별 boolean
         self.running=True
+        self.errorstring=""
 
     
     def play(self):
@@ -76,10 +78,11 @@ class Omok(models.Model):
                         if(self.checkRule(self.player,self.row-1,self.col-1)):
                             error=False;
                         else:
-                            print("self.Player 1 Rule Break")
-                    else: print("already",self.row,self.col)
+                            self.errorstring="Player 1 Rule Break"
+                    else: 
+                        self.errorstring="already"+str(self.row)+str(self.col)
                 except:
-                     print("self.Player 1 input error")
+                     self.errorstring="self.Player 1 input error"
 
         elif(self.player==1):
             while(error):
@@ -89,16 +92,18 @@ class Omok(models.Model):
                     if(self.isSize(self.row) and self.isSize(self.col) and self.isEmpty(self.row,self.col)): 
                         error=False;
                     else: 
-                        print("already",self.row,self.col)
+                        self.errorstring="already"+str(self.row)+str(self.col)
                 except:
-                    print("self.Player 2 input error")  
+                    self.errorstring="Player 2 input error"
+        self.errorstring=""
 
         self.locate[self.row-1][self.col-1]=self.player # 위치에 돌을 놓는다  
             
     def winner(self):
         self.Winner=self.checkWin(self.player,self.row-1,self.col-1)
         if(self.Winner): #어떤 플레이어가 승리했을 시 
-            print(self.player,'is Winner');self.running=False
+            self.errorstring=str(self.player)+"is Winner";
+            self.running=False
         else:
             self.player=(self.player+1)%2 # next self.player
 
