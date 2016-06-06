@@ -1,0 +1,65 @@
+app 만들기
+프로젝트 폴더로 이동
+python manage.py startapp <앱이름>
+ls 명령어를 치면 <앱이름>이라는 디렉토리가 생성되어 있음
+
+
+hello world를 출력하는 index 함수 만들기
+앞에서 생성한 <앱이름> 폴더로 이동
+views.py(\프로젝트이름\앱이름\views.py) 수정 - 페이지 요청에 대해 "hello world"라는 httpResponse
+
+#C\Code\mysite\elections\views.py
+from django.shortcuts import render
+from django.http import HttpResponse
+
+def index(request):
+    return HttpResponse("Hello world")
+
+
+
+
+앱에 접근할 조건을 지정하는 함수 만들기
+\프로젝트명\프로젝트명\urls.py에 urlpatterns 수정
+
+#C\Code\mysite\mysite\urls.py
+
+from django.conf.urls import url, include
+from django.contrib import admin
+
+urlpatterns = [
+    url(r'^', include('elections.urls')), #localhost:8000으로 요청이 들어오면 elections.urls로 전달
+    url(r'^admin/', include(admin.site.urls)), #app 접속을 위해 include를 씁니다.
+]
+
+
+
+앞서 생성한 index 함수를 실행할 조건을 지정하는 함수 만들기
+앞서 생성한 <앱이름> 폴더로 이동
+urls.py(\프로젝트이름\앱이름\urls.py) 파일 생성
+urls.py에 urlpatterns로 index함수를 지정
+
+#C\Code\mysite\elections\urls.py
+
+from django.conf.urls import url
+from . import views #.은 현재 폴더(elections)를 의미합니다.
+
+urlpatterns = [
+    url(r'^$', views.index), #위의 urls.py와는 달리 include가 없습니다.
+]
+
+
+
+###############################
+app과 관련된 정보를 저장할 model
+모델클래스는 앱 안의 models.py에 정의합니다.
+모델 class는 models.Model을 상속받아야 합니다.
+모델 class안의 멤버 변수의 field에 대한 정보는 Field types를 참고해주세요
+? django에서 보통 model이름은 대문자로 시작하고, 단수형으로 씁니다.
+
+# C:\Code\mysite\elections\models.py
+
+class Candidate(models.Model):
+    name = models.CharField(max_length=10)
+    introduction = models.TextField()
+    area = models.CharField(max_length=15)
+    party_number = models.IntegerField(default=1)
