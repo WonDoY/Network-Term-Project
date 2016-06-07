@@ -16,14 +16,14 @@
         <tr>
             {%for j in i%}
             <td>
-                {%if j == 1%}
-                    <div style="position: relative;"><img src="../static/game/blackball.png" width ="50" height="50"></div>
-                {%endif%}
-                {%if j == 2%}
-                   <div style="position: relative;"><img src="../static/game/whiteball.png" width ="50" height="50"></div>
-                {%endif%}
                 {%if j == 0%}
-                   <div style="position: relative;"><img src="../static/game/blank.png" width ="50" height="50"></div>
+                    <div style="position: relative;"><img src="https://github.com/WonDoY/Network-Term-Project/blob/master/djangoterm/mysite/omok/templates/omok/black.png?raw=true" width ="30" height="30"></div>
+                {%endif%}
+                {%if j == 1%}
+                   <div style="position: relative;"><img src="https://github.com/WonDoY/Network-Term-Project/blob/master/djangoterm/mysite/omok/templates/omok/white.png?raw=true" width ="30" height="30"></div>
+                {%endif%}
+                {%if j == 5%}
+                   <div style="position: relative;"><img src="https://github.com/WonDoY/Network-Term-Project/blob/master/djangoterm/mysite/omok/templates/omok/empty.png?raw=true" width ="23" height="23"></div>
                 {%endif%}
             </td>
             {%endfor%}
@@ -31,20 +31,11 @@
         {%endfor%}
     </table>
     </div>
-    <img src="../static/game/board.PNG" width ="435" height="465">
+    <img src="https://github.com/WonDoY/Network-Term-Project/blob/master/djangoterm/mysite/omok/templates/omok/board.png?raw=true" width ="390" height="390">
 </div>
 
 
 
-<div>
-    <div style="position: absolute;">
-        <div style="position: relative; top: 18px; left: 18px;"><img src="https://github.com/WonDoY/Network-Term-Project/blob/master/djangoterm/mysite/omok/templates/omok/black.png?raw=true" width ="50" height="50"></div>
-    </div>
-    <div style="position: absolute;">
-        <div style="position: relative; top: 18px; left: 18px;"><img src="https://github.com/WonDoY/Network-Term-Project/blob/master/djangoterm/mysite/omok/templates/omok/white.png?raw=true" width ="50" height="50"></div>
-    </div>
-    <!--<img src="board.jpg" width ="500" height="500">-->
-</div>
 <img src="board.jpg" width ="500" height="500">
 <FORM ACTION="" METHOD="get">
     <div class="Data">
