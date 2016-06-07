@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
+from .models import *
 user1 = ""
 # Create your views here.
 """
@@ -336,9 +337,9 @@ def index_ing(request): # index_ing 이름 바꾸기 나중에
         return HttpResponseRedirect("/main/{}/".format(user.id))
 
 
-def main(request, name):
+def main(request, myname):
     room = RoomInfo.objects.filter(full=1)
-    me = UserInfo.objects.get(id=name)  
+    me = UserInfo.objects.get(id=myname)  
     potal = {'rooms':room, 'me':me }
     return render(request, 'omok/main.html', potal)
    

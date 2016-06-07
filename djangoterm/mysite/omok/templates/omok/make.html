@@ -1,9 +1,9 @@
-<!DOCTYPE HTML>
+ï»¿<!DOCTYPE HTML>
 
 <html>
 <head>
 <meta charset="utf-8">
-<title>½ÅÀÇ ÇÑ ¼ö</title>
+<title>omok/make</title>
     <style>
       #jb-container {
         width: 940px;
@@ -58,7 +58,7 @@
         border: 1px solid #bcbcbc;
       }
     </style>
-
+<meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <!--
 def test(request):
@@ -69,6 +69,19 @@ def test(request):
 	<div id="jb-container">
       <div id="jb-header">
         <center>
+<<<<<<< HEAD
+      <h1 align="center">ì‹ ì˜ í•œ ìˆ˜ : ì˜¤ëª© ê²Œì„</h1>
+      </div>
+      <div id="jb-footer">
+        
+      <form align="left" action="/make/ing/{{me.id}}/" method="POST">
+      {%csrf_token%}
+      ë°© ì´ë¦„ ì…ë ¥  
+      <input type="text" name="roomname" style="width: 500px; height:25px" value="-ë°© ì´ë¦„ ì…ë ¥-"/>
+       <button type="submit" style="width: 50px; height:25px" > ìƒì„±   </button>
+      
+      </form>
+=======
 		<h1 align="center">½ÅÀÇ ÇÑ ¼ö : ¿À¸ñ °ÔÀÓ</h1>
       </div>
       <div id="jb-footer">
@@ -80,6 +93,7 @@ def test(request):
 	    <button type="submit" style="width: 50px; height:25px" > »ı¼º	</button>
 		
 		</form>
+>>>>>>> origin/master
       </div>
     </div>
 	

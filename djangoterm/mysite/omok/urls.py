@@ -2,7 +2,6 @@
 from django.conf.urls import include, url
 #import ./views
 from . import views
-from django.contrib import admin
 
 
 urlpatterns = [
@@ -18,9 +17,9 @@ urlpatterns = [
     url(r'^room/(?P<room_id>\d+)/(?P<myname>\d+)/out/$',views.out),
     url(r'^make/(?P<myname>\d+)/$', views.make),
     url(r'^make/ing/(?P<myname>\d+)/$', views.make_ing),
-    url(r'^room/(?P<room_id>\d+)/chess/(?P<myname>\d+)/$', views.omok),
-    url(r'^room/(?P<room_id>\d+)/room_to_chess/(?P<myname>\d+)/$', views.room_to_omok),
-    url(r'^room/(?P<room_id>\d+)/chess/ing/(?P<myname>\d+)/$', views.omok_ing),
+    url(r'^room/(?P<room_id>\d+)/omok/(?P<myname>\d+)/$', views.omok),
+    url(r'^room/(?P<room_id>\d+)/room_to_omok/(?P<myname>\d+)/$', views.room_to_omok),
+    url(r'^room/(?P<room_id>\d+)/omok/ing/(?P<myname>\d+)/$', views.omok_ing),
     # /path = r'^blah', views.blah
 ]
 

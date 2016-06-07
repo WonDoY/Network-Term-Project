@@ -19,3 +19,6 @@ class RoomInfo(models.Model):
 class omokBoard(models.Model):
     board = models.TextField()
     room_num = models.IntegerField(default=0)
+
+class RoomMaster(models.Model):
+	name=models.CharField(max_length=10)
