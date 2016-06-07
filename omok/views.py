@@ -113,6 +113,91 @@ def chess_ing(request, room_id, myname):
 
 
 
+def room(request, room_id, myname):
+
+	
+	me=UserInfo.objects.get(id=myname)
+	room = RoomInfo.objects.get(id=int(room_id))
+
+
+	if(room.full == 0):
+		room.user1=me.name
+		room.full = 1
+		room.save()
+		context={'room': room,'me':me}
+
+
+		return render(request, 'omok/room.html',context)
+
+
+	elif(room.full == 1 and room.user1!=me.name):
+		room.user2 = me.name
+		room.full = 2 
+		room.save()
+		context={'room' : room, 'me':me }
+
+
+		return render(request, 'omok/room.html',context)
+
+
+
+
+	elif(room.user1!=me.name and room.user2!=me.name and room.full==2):
+		
+		return HttpResponseRedirect("/main/{}/".format(myname))
+
+
+
+	else:
+		"""
+		저장 후 반환 
+		"""
+		context={'room' : room,'me':me }
+
+		return render(request, 'omok/room.html',context)
+
+
+
+
+def room_to_omok(requset, room_id, myname):
+
+
+	me=UserInfo.objects.get(id=myname)
+	room=RoomInfo.objects.get(id=room_id)
+
+
+
+
+	if room.user1=='none' or room.user2=='none':
+
+		return HttpResponseRedirect("/room/{}/{}".format(room.id, myname))
+
+
+
+	global ok_1
+	global ok_2
+	ok_1=0
+	ok_2=0
+
+
+	while True:
+
+		if room.user1==me.name:
+			ok_1=1
+			
+
+		if room.user2==me.name:
+			ok_2=1
+			
+
+		if ok_1 == 1 and ok_2 == 1:
+			
+			return HttpResponseRedirect("/room/{}/omok/{}".format(room.id, myname))
+		
+
+
+
+
 
 def isSize(n): # 놓은 위치가 맞는지 확인
     if(1 <= n and n <= 13 and int==type(n)):
