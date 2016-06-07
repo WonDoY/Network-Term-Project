@@ -3,40 +3,39 @@ from django.http import HttpResponse, HttpResponseRedirect
 user1 = ""
 # Create your views here.
 """
- based /omok/{....}
+based /omok/{....}
 
- index 
-        >  /index.html
+index 
+>  /index.html
 
- out   
-        >  /out.html
+out   
+>  /out.html
 
- not_name  
-    if > out.html
-  else > /main/{user.id}
+not_name  
+if > out.html
+else > /main/{user.id}
 
- main 
-        >   /main.html
+main 
+>   /main.html
 
- make 
-        >   /make.html
+make 
+>   /make.html
 
- make_ing 
-        > /room/{room.id}/{myname}
+make_ing 
+> /room/{room.id}/{myname}
 
- omok 
-        > omok.html
+omok 
+> omok.html
+omok_ing 
+> /room/{room_id}/omok/{me_id}
 
- omok_ing 
-        > /room/{room_id}/omok/{me_id}
+room  
+> room.html
+> main/myname/
 
- room   
-        > room.html
-        > main/myname/
-
- room_to_omok
-        > /room/{room.id}/{myname}
-        > /room/{room.id}/omok/{myname}
+room_to_omok
+> /room/{room.id}/{myname}
+> /room/{room.id}/omok/{myname}
 """
 
 
@@ -47,24 +46,24 @@ def isSize(n): # 놓은 위치가 맞는지 확인
     return False
 
 
-def isEmpty(row,col):
-	board = [[5 for i in range(13)] for j in range(13)] 
-	
+def isEmpty(row,col,room_id):
+    board = [[5 for i in range(13)] for j in range(13)] 
+    
 
 
-	Omok=omokBoard.objects.filter(room_number=room_id)
-	omok=Omok[0]
-	load=omok.board
+    Omok=omokBoard.objects.filter(room_number=room_id)
+    omok=Omok[0]
+    load=omok.board
+    
+    index=0    
+    for row in range(13):
+        for col in range(13):
+            board[row][col] = load[index]
+            index += 1
 
-	
-	index=0	
-	for row in range(13):
-		for col in range(13):
-			board[row][col]=load[index]
-			index+=1
-
-
-    if(board[row-1][col-1]>2): return True # 플레이어 돌은 0과 1 이므로 2보다크면빈자리
+# 플레이어 돌은 0과 1 이므로 2보다크면빈자리
+    if(board[row-1][col-1]>2):
+        return True 
     return False
 
 
@@ -89,7 +88,8 @@ class queue:
 #stack list를 사용 해서 넣을 경우 .append(argv) / .pop()
 #
 #구현 check win
-def checkWin(P,row,col):# P:Player
+"""
+def checkWin(P,row,col,room_id):# P:Player
 
     
     QXX=queue(row,col)#-
@@ -99,35 +99,43 @@ def checkWin(P,row,col):# P:Player
     
     
     board = [[5 for i in range(13)] for j in range(13)] 
-	
+    
 
 
-	Omok=omokBoard.objects.filter(room_number=room_id)
-	omok=Omok[0]
-	load=omok.board
+    Omok=omokBoard.objects.filter(room_number=room_id)
+    omok=Omok[0]
+    load=omok.board
 
-	
-	index=0	
-	for row in range(13):
-		for col in range(13):
-			board[row][col]=load[index]
-			index+=1
+    
+    index=0    
+    for row in range(13):
+        for col in range(13):
+            board[row][col]=load[index]
+            index+=1
 
 
     cnt=0
     visit=[[0 for x in range(13)] for y in range(13)]
     visit[row][col]=1
     while (not QXX.isEmpty()):#-        
-        ROW,COL=QXX.pop()        
-        cnt+=1
-        print("XX",cnt)
+        ROW,COL=QXX.pop(     
+        cnt=cnt+1
+        
 
-        try :
-            if(board[ROW][COL-1]==P and visit[ROW][COL-1]==0 and COL-1>=0):  visit[ROW][COL-1]=1;QXX.push(ROW,COL-1)
+        try:
+            if(board[ROW][COL-1]==P and visit[ROW][COL-1]==0 and COL-1>=0):
+                visit[ROW][COL-1]=1;QXX.push(ROW,COL-1)
         except:
             print()
+
+
+
+
+
+
         try:
-            if(board[ROW][COL+1]==P and visit[ROW][COL+1]==0 and COL+1<=12):visit[ROW][COL+1]=1;QXX.push(ROW,COL+1)
+            if(board[ROW][COL+1]==P and visit[ROW][COL+1]==0 and COL+1<=12):
+                visit[ROW][COL+1]=1;QXX.push(ROW,COL+1)
         except:
             print()
         
@@ -188,8 +196,8 @@ def checkWin(P,row,col):# P:Player
     return False
 # 미구현
 # 막힌 수, 띄어진 수 구현 안됨. 
-def checkRule(P,row,col):
-	
+def checkRule(P,row,col,room_id):
+    
     
     Rule3 = 0 # 막히지 않은 3
     Rule4 = 0 # 막히지 않은 4 세기
@@ -224,19 +232,19 @@ def checkRule(P,row,col):
     
 
     board = [[5 for i in range(13)] for j in range(13)] 
-	
+    
 
 
-	Omok=omokBoard.objects.filter(room_number=room_id)
-	omok=Omok[0]
-	load=omok.board
+    Omok=omokBoard.objects.filter(room_number=room_id)
+    omok=Omok[0]
+    load=omok.board
 
-	
-	index=0	
-	for row in range(13):
-		for col in range(13):
-			board[row][col]=load[index]
-			index+=1
+    
+    index=0    
+    for row in range(13):
+        for col in range(13):
+            board[row][col]=load[index]
+            index+=1
 
 
 
@@ -298,10 +306,10 @@ def checkRule(P,row,col):
     print("Counting : ",Rule3,Rule4)
     if(Rule4>=2): return False
     if(Rule3>=2): return False
-    return True     
-
+    return True  
+"""
 def index(request): 
-	return render(request, 'omok/index.html') #닉네임 부분
+    return render(request, 'omok/index.html') #닉네임 부분
 
 
 
@@ -309,7 +317,7 @@ def index(request):
 def out(request, Id, name): # out 이름 바꾸기 나중 
     me = UserInfo.objects.get(id=name)
     room = RoomInfo.objects.get(id=int(Id))
-    potal = {'room' : room, 'me': me }    
+    potal = {'room' : room, 'me': me }  
     if request.POST.get('OK') : 
         room.user2 = 'none'
         room.pull = 1
@@ -319,9 +327,9 @@ def out(request, Id, name): # out 이름 바꾸기 나중
 
 
 
-def not_name(request): # index_ing 이름 바꾸기 나중에 
+def index_ing(request): # index_ing 이름 바꾸기 나중에 
     if request.POST.get('title') == '':
-        return render(request,'omok/not_name.html')
+        return render(request,'omok/index_ing.html')
    
     else:
         str = request.POST.get('title', False)
@@ -346,104 +354,339 @@ def make(request,myname):
     return render(request, 'omok/make.html', context)
 
 def omok(request, room_id, myname):
-	global ready
-	
-	# me 이름 매칭 가져옴 DB
-	me = UserInfo.objects.get(id=myname)
-	# 
-	room = RoomInfo.objects.get(id=int(room_id))
+    global ready
+    
+    # me 이름 매칭 가져옴 DB
+    me = UserInfo.objects.get(id=myname)
+    # 
+    room = RoomInfo.objects.get(id=int(room_id))
 
-	board = []
-
-
-	omok=omokBoard.objects.filter(room_number=room_id)
-
-	if(omok):
-		#str=request.POST.get('move', False)
-		load=omok[0].board
-
-		index=0
-		
-		for row in range(13):
-			for col in range(13):
-				board[row][col] = load[index]
-				index+=1
-		# save board load
-
-		context={'board':board,'str':str,'room':room,'me':me}
-		
-		return render(request, 'omok/omok.html',context)
+    board = []
 
 
-	else:
-		b=""
-		for i in board:
-			for j in i:
-				b=b+j
-			# string +=
+    omok=omokBoard.objects.filter(room_number=room_id)
 
-		# 생성
-		omokBoard.objects.create(board=b, room_number=room_id)
-		context={'board':board,'room':room,'me':me}
-		
-		return render(request, 'omok/omok.html',context)
+    if(omok):
+        #str=request.POST.get('move', False)
+        load=omok[0].board
+
+        index=0
+        
+        for row in range(13):
+            for col in range(13):
+                board[row][col] = load[index]
+                index+=1
+        # save board load
+
+        context={'board':board,'str':str,'room':room,'me':me}
+        
+        return render(request, 'omok/omok.html',context)
+
+
+    else:
+        b=""
+        for i in board:
+            for j in i:
+                b=b+j
+            # string +=
+
+        # 생성
+        omokBoard.objects.create(board=b, room_number=room_id)
+        context={'board':board,'room':room,'me':me}
+        
+        return render(request, 'omok/omok.html',context)
 
 def omok_ing(request, room_id, myname):
 
 
-	me = UserInfo.objects.get(id=myname)
-	# 위치 입력 
-	place=request.POST.get('pos', False)
-	# ->pos
-	
+    me = UserInfo.objects.get(id=myname)
+    # 위치 입력 
 
 
-	# gomoku board init
-	board = [[5 for i in range(13)] for j in range(13)] 
-	
 
 
-	Omok=omokBoard.objects.filter(room_number=room_id)
-	omok=Omok[0]
-	load=omok.board
-
-	
-	index=0	
-	for row in range(13):
-		for col in range(13):
-			board[row][col]=load[index]
-			index+=1
-	# match up
 
 
-	place = place.split()
-	pos_r = int(place[0])
-	pos_c = int(place[1])
-	
-	#piece와 place을 인자로 받아 piece의 place동작이 올바른 동작인지 판별하는 함수 필요
-	#동작이 적절하면 아래 실행
 
-	## 수를 놓는다. user 의 no 을 알아야함.
-	if(isSize(pos_r) and isSize(pos_c) and isEmpty(pos_r,pos_c)):
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    place=request.POST.get('pos', False)
+    # ->pos
+    
+
+
+    # gomoku board init
+    board = [[5 for i in range(13)] for j in range(13)] 
+    
+
+
+    Omok=omokBoard.objects.filter(room_number=room_id)
+    omok=Omok[0]
+    load=omok.board
+
+    
+    index=0    
+    for row in range(13):
+        for col in range(13):
+            board[row][col]=load[index]
+            index+=1
+    # match up
+
+
+    place = place.split()
+    pos_r = int(place[0])
+    pos_c = int(place[1])
+    
+    #piece와 place을 인자로 받아 piece의 place동작이 올바른 동작인지 판별하는 함수 필요
+    #동작이 적절하면 아래 실행
+
+    ## 수를 놓는다. user 의 no 을 알아야함.
+    if(isSize(pos_r) and isSize(pos_c) and isEmpty(pos_r,pos_c,room_id)):
         if(checkRule(0,pos_r-1,pos_c-1)): #
-        	board[pos_r][pos_c] = 0
+            board[pos_r][pos_c] = 0
 
 
 
 
-	
+    
 
-	
-	loader=""
-	for i in board:
-		for j in i:
-			loader=loader+j
+    
+    loader=""
+    for i in board:
+        for j in i:
+            loader=loader+j
 
-	omok.board = loader
-	omok.save()
+    omok.board = loader
+    omok.save()
 
 
-	return HttpResponseRedirect("/room/{}/omok/{}".format(room_id, me.id))
+    return HttpResponseRedirect("/room/{}/omok/{}".format(room_id, me.id))
 
 def make_ing(request, myname):
 
@@ -476,46 +719,46 @@ def make_ing(request, myname):
 
 def room(request, room_id, myname):
 
-	
-	me=UserInfo.objects.get(id=myname)
-	room = RoomInfo.objects.get(id=int(room_id))
+    
+    me=UserInfo.objects.get(id=myname)
+    room = RoomInfo.objects.get(id=int(room_id))
 
 
-	if(room.full == 0):
-		room.user1=me.name
-		room.full = 1
-		room.save()
-		context={'room': room,'me':me}
+    if(room.full == 0):
+        room.user1=me.name
+        room.full = 1
+        room.save()
+        context={'room': room,'me':me}
 
 
-		return render(request, 'omok/room.html',context)
+        return render(request, 'omok/room.html',context)
 
 
-	elif(room.full == 1 and room.user1!=me.name):
-		room.user2 = me.name
-		room.full = 2 
-		room.save()
-		context={'room' : room, 'me':me }
+    elif(room.full == 1 and room.user1!=me.name):
+        room.user2 = me.name
+        room.full = 2 
+        room.save()
+        context={'room' : room, 'me':me }
 
 
-		return render(request, 'omok/room.html',context)
-
-
-
-
-	elif(room.user1!=me.name and room.user2!=me.name and room.full==2):
-		
-		return HttpResponseRedirect("/main/{}/".format(myname))
+        return render(request, 'omok/room.html',context)
 
 
 
-	else:
-		"""
-		저장 후 반환 
-		"""
-		context={'room' : room,'me':me }
 
-		return render(request, 'omok/room.html',context)
+    elif(room.user1!=me.name and room.user2!=me.name and room.full==2):
+        
+        return HttpResponseRedirect("/main/{}/".format(myname))
+
+
+
+    else:
+        """
+        저장 후 반환 
+        """
+        context={'room' : room,'me':me }
+
+        return render(request, 'omok/room.html',context)
 
 
 
@@ -523,38 +766,38 @@ def room(request, room_id, myname):
 def room_to_omok(requset, room_id, myname):
 
 
-	me=UserInfo.objects.get(id=myname)
-	room=RoomInfo.objects.get(id=room_id)
+    me=UserInfo.objects.get(id=myname)
+    room=RoomInfo.objects.get(id=room_id)
 
 
 
 
-	if room.user1=='none' or room.user2=='none':
+    if room.user1=='none' or room.user2=='none':
 
-		return HttpResponseRedirect("/room/{}/{}".format(room.id, myname))
-
-
-
-	global ok_1
-	global ok_2
-	ok_1=0
-	ok_2=0
+        return HttpResponseRedirect("/room/{}/{}".format(room.id, myname))
 
 
-	while True:
 
-		if room.user1==me.name:
-			ok_1=1
-			
+    global ok_1
+    global ok_2
+    ok_1=0
+    ok_2=0
 
-		if room.user2==me.name:
-			ok_2=1
-			
 
-		if ok_1 == 1 and ok_2 == 1:
-			
-			return HttpResponseRedirect("/room/{}/omok/{}".format(room.id, myname))
-		
+    while True:
+
+        if room.user1==me.name:
+            ok_1=1
+            
+
+        if room.user2==me.name:
+            ok_2=1
+            
+
+        if ok_1 == 1 and ok_2 == 1:
+            
+            return HttpResponseRedirect("/room/{}/omok/{}".format(room.id, myname))
+        
 
 
 

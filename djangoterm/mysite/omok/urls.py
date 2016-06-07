@@ -9,9 +9,18 @@ urlpatterns = [
     # Examples:
     # url(r'^$', 'mysite.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
-    url(r'^home', views.home),
-    url(r'^game', views.game),
-    url(r'^admin', admin.site.urls),
+    
+    url(r'^$', views.index),
+    url(r'^ing/$', views.index_ing),
+
+    url(r'^main/(?P<myname>\d+)/$', views.main),
+    url(r'^room/(?P<room_id>\d+)/(?P<myname>\d+)/$', views.room),
+    url(r'^room/(?P<room_id>\d+)/(?P<myname>\d+)/out/$',views.out),
+    url(r'^make/(?P<myname>\d+)/$', views.make),
+    url(r'^make/ing/(?P<myname>\d+)/$', views.make_ing),
+    url(r'^room/(?P<room_id>\d+)/chess/(?P<myname>\d+)/$', views.omok),
+    url(r'^room/(?P<room_id>\d+)/room_to_chess/(?P<myname>\d+)/$', views.room_to_omok),
+    url(r'^room/(?P<room_id>\d+)/chess/ing/(?P<myname>\d+)/$', views.omok_ing),
     # /path = r'^blah', views.blah
 ]
 
