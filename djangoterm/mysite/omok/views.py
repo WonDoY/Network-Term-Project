@@ -118,8 +118,8 @@ def checkWin(P,row,col,room_id):# P:Player
     visit=[[0 for x in range(13)] for y in range(13)]
     visit[row][col]=1
     while (not QXX.isEmpty()):#-        
-        ROW,COL=QXX.pop() 
-        cnt=cnt+1
+        ROW,COL=QXX.pop()
+        cnt+=1
         
 
         try:
