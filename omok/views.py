@@ -48,10 +48,12 @@ def omok(request, room_id, myname):
 
 
 def omok_ing(request, room_id, myname):
+
+
 	me = UserInfo.objects.get(id=myname)
 	# 위치 입력 
-	place=request.POST.get('move', False)
-	# move->pos
+	place=request.POST.get('pos', False)
+	# ->pos
 	
 
 
