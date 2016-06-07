@@ -92,8 +92,8 @@
 	 
 	  <div id="jb-sidebar-right">
 		<div id="jb-sidebar-left-2">
-			<t> {{room.user1}} </t><br>
-			<t> {{room.user2}} </t>
+			<t> 흑돌 : {{room.user1}} </t><br>
+			<t> 백돌 : {{room.user2}} </t>
         </div>
 	  </div>
      
@@ -102,7 +102,7 @@
 		  <a href="/room/{{room.id}}/room_to_omok/{{me.id}}/">
 			<button style="width: 80px; height:30px" >게임시작</button>
 		  </a>
-		  <a href="/main/">
+		  <a href="/main/{{me.id}}/">
 			<button style="width: 80px; height:30px" >방 목록</button>
 		  </a>
 		</center>
