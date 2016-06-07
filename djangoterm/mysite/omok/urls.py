@@ -2,6 +2,7 @@
 from django.conf.urls import include, url
 #import ./views
 from . import views
+from django.contrib import admin
 
 
 urlpatterns = [
@@ -10,6 +11,7 @@ urlpatterns = [
     # url(r'^blog/', include('blog.urls')),
     url(r'^home', views.home),
     url(r'^game', views.game),
+    url(r'^admin', admin.site.urls),
     # /path = r'^blah', views.blah
 ]
 
