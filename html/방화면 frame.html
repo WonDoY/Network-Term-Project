@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8">
+    <title>CSS Tutorial | Layout</title>
+    <style>
+      #jb-container {
+        width: 940px;
+        margin: 0px auto;
+        padding: 20px;
+        border: 1px solid #bcbcbc;
+      }
+      #jb-header {
+        padding: 20px;
+        margin-bottom: 20px;
+        border: 1px solid #bcbcbc;
+      }
+      #jb-sidebar-left {
+        width: 160px;
+        padding: 20px;
+		
+        margin-right: 20px;
+        margin-bottom: 20px;
+        float: left;
+        border: 1px solid #bcbcbc;
+      }
+	
+      #jb-content {
+        width: 450px;
+        padding: 20px;
+        margin-bottom: 20px;
+        float: left;
+        border: 1px solid #bcbcbc;
+      }
+	  
+	  #jb-sidebar-left-down {
+		width: 160px;
+        padding: 20px;
+
+        margin-right: 20px;
+        margin-bottom: 20px;
+        float: left;
+        border: 1px solid #bcbcbc;
+	  }
+	  
+      #jb-sidebar-right {
+        width: 160px;
+        padding: 20px;
+		margin-top : 355px;
+        margin-bottom: 20px;
+        float: right;
+        border: 1px solid #bcbcbc;
+      }
+      #jb-footer {
+        clear: both;
+        padding: 20px;
+        border: 1px solid #bcbcbc;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="jb-container">
+      <div id="jb-header">
+        <center>
+		<p align="center">신의 한 수 : 오목 게임</p>
+		<textarea rows="5" cols="50" name="contents">
+			남은시간 
+
+	
+		</textarea><br>
+      </div>
+      <div id="jb-sidebar-left">
+        
+		<div style="color: red; font: 20px;">
+			user1<br>
+		</div>
+		<br><br><br><br><br>
+		- 흑이 먼저 시작<br>
+		- 흑과 백이 교대로 돌을 하나씩 놓는다<br>
+		- 승리 조건 : 가로, 세로, 대각선으로 연속된 5개의 돌을 이었을 때<br>
+		- 금수 : 33금수, 44금수<br>		
+		- 예외 : 가로, 세로, 대각선으로 연속된 6개 이상의 돌을 이었을 때 승리 조건으로 취급하지 않는다<br>
+	    
+      </div>
+	 
+	  
+      <div id="jb-content">
+        <h2>Content</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean nec mollis nulla. Phasellus lacinia tempus mauris eu laoreet. Proin gravida velit dictum dui consequat malesuada. Aenean et nibh eu purus scelerisque aliquet nec non justo. Aliquam vitae aliquet ipsum. Etiam condimentum varius purus ut ultricies. Mauris id odio pretium, sollicitudin sapien eget, adipiscing risus.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean nec mollis nulla. Phasellus lacinia tempus mauris eu laoreet. Proin gravida velit dictum dui consequat malesuada. Aenean et nibh eu purus scelerisque aliquet nec non justo. Aliquam vitae aliquet ipsum. Etiam condimentum varius purus ut ultricies. Mauris id odio pretium, sollicitudin sapien eget, adipiscing risus.</p>
+      </div>
+      <div id="jb-sidebar-right">
+        <input type="button" style="width: 80px; height:40px" value="resign"> 
+      </div>
+      <div id="jb-footer">
+        <center>
+		<br>
+<!--
+	<div>
+		
+		<a href="33일때.html" data-rel="dialog">
+			<input type="button" style="width 80px; height:40px" value="test_D">
+		</a>
+	</div>
+-->
+		<textarea rows="5" cols="50" name="contents">
+			게임상태
+		</textarea><br>
+		</center>
+      </div>
+    </div>
+  </body>
+</html>
