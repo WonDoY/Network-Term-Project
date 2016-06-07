@@ -74,6 +74,7 @@ def test(request):
       <div id="jb-sidebar-left">
         
 		<form align="left" action="/main/" method="post">
+		{%csrf_token%}
 		방 이름 입력  
 		<input type="text" name="roomname" style="width: 700px; height:25px" value="-방 이름 입력-"/>
 	    

@@ -67,7 +67,7 @@
 		
       </div>
       <div id="jb-sidebar-left">
-        
+        {%for room in rooms%}
 		<a href="/room/{{room.id}}/{{me.id}}/">
 		<div>
 		  {{room.id}}. {{room.name}}. 인원 {{room.full}} /2
@@ -85,8 +85,7 @@
       <div id="jb-footer">
         <center>
 		  <a href="/make/{{me.id}}/">
-			<button style="width: 50px; height:25px" >
-			   생성
+			<button style="width: 50px; height:25px" > 생성 </button>
             
           </a>
 		</center>
