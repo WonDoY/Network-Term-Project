@@ -52,7 +52,7 @@ def isEmpty(row,col,room_id):
     
 
 
-    Omok=omokBoard.objects.filter(room_number=room_id)
+    Omok=omokBoard.objects.filter(room_num=room_id)
     omok=Omok[0]
     load=omok.board
     
@@ -103,7 +103,7 @@ def checkWin(P,row,col,room_id):# P:Player
     
 
 
-    Omok=omokBoard.objects.filter(room_number=room_id)
+    Omok=omokBoard.objects.filter(room_num=room_id)
     omok=Omok[0]
     load=omok.board
 
@@ -231,7 +231,7 @@ def checkRule(P,row,col,room_id):
     
 
 
-    Omok=omokBoard.objects.filter(room_number=room_id)
+    Omok=omokBoard.objects.filter(room_num=room_id)
     omok=Omok[0]
     load=omok.board
 
@@ -360,7 +360,7 @@ def omok(request, room_id, myname):
     board = []
 
 
-    omok=omokBoard.objects.filter(room_number=room_id)
+    omok=omokBoard.objects.filter(room_num=room_id)
 
     if(omok):
         #str=request.POST.get('move', False)
@@ -387,7 +387,7 @@ def omok(request, room_id, myname):
             # string +=
 
         # 생성
-        omokBoard.objects.create(board=b, room_number=room_id)
+        omokBoard.objects.create(board=b, room_num=room_id)
         context={'board':board,'room':room,'me':me}
         
         return render(request, 'omok/omok.html',context)
@@ -409,7 +409,7 @@ def omok_ing(request, room_id, myname):
     
 
 
-    Omok=omokBoard.objects.filter(room_number=room_id)
+    Omok=omokBoard.objects.filter(room_num=room_id)
     omok=Omok[0]
     load=omok.board
 
