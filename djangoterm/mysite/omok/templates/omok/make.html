@@ -71,22 +71,14 @@ def test(request):
         <center>
 		<h1 align="center">신의 한 수 : 오목 게임</h1>
       </div>
-      <div id="jb-sidebar-left">
+      <div id="jb-footer">
         
 		<form align="left" action="/make/ing/{{me.id}}/" method="POST">
 		{%csrf_token%}
 		방 이름 입력  
-		<input type="text" name="roomname" style="width: 700px; height:25px" value="-방 이름 입력-"/>
-	    
-      </div>
-	 
-      <div id="jb-footer">
-        <center>
-			 
-			<button type="submit" style="width: 50px; height:25px" >
-			생성
-			</button>
-		</center>
+		<input type="text" name="roomname" style="width: 500px; height:25px" value="-방 이름 입력-"/>
+	    <button type="submit" style="width: 50px; height:25px" > 생성	</button>
+		
 		</form>
       </div>
     </div>
