@@ -1,28 +1,64 @@
-﻿<!DOCTYP HTML>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<meta charset="utf-8" />
-<title>오목 게임</title>
-	<script>
-		
-	</script>
+    <meta charset="UTF-8">
+    <title>Game</title>
 </head>
+<body>
 
-<body onload = initialise()>
-	<center>
-		
-		<br>
-		패턴수<input type="button" id="black_pattern_num" value="0">
-		<input type="button" value="게임 시작" onclick="startPlay(true);">
-		수<input type="button" id="round" value="0">
-		<br>
-		<input type="text" id="msg" size="60"><br>
 
-		<form>
-			<textarea id="blackplayer" cols="50" rows="20">
 
-			</textarea>
-			<br>
-		</form>
-	</body>
-	</html>
+<p><h1>{{ msg }}</h1></p>
+<div>
+    <div style="position: absolute;">
+    <table>
+        {%for i in locate%}
+        <tr>
+            {%for j in i%}
+            <td>
+                {%if j == 1%}
+                    <div style="position: relative;"><img src="../static/game/blackball.png" width ="50" height="50"></div>
+                {%endif%}
+                {%if j == 2%}
+                   <div style="position: relative;"><img src="../static/game/whiteball.png" width ="50" height="50"></div>
+                {%endif%}
+                {%if j == 0%}
+                   <div style="position: relative;"><img src="../static/game/blank.png" width ="50" height="50"></div>
+                {%endif%}
+            </td>
+            {%endfor%}
+         </tr>
+        {%endfor%}
+    </table>
+    </div>
+    <img src="../static/game/board.PNG" width ="435" height="465">
+</div>
+
+
+
+<div>
+    <div style="position: absolute;">
+        <div style="position: relative; top: 18px; left: 18px;"><img src="https://github.com/WonDoY/Network-Term-Project/blob/master/djangoterm/mysite/omok/templates/omok/black.png?raw=true" width ="50" height="50"></div>
+    </div>
+    <div style="position: absolute;">
+        <div style="position: relative; top: 18px; left: 18px;"><img src="https://github.com/WonDoY/Network-Term-Project/blob/master/djangoterm/mysite/omok/templates/omok/white.png?raw=true" width ="50" height="50"></div>
+    </div>
+    <!--<img src="board.jpg" width ="500" height="500">-->
+</div>
+<img src="board.jpg" width ="500" height="500">
+<FORM ACTION="" METHOD="get">
+    <div class="Data">
+        <div class="row">
+            <input type="text" name="x" placeholder="row" maxlength=2>
+        </div>
+        <div class="col">
+            <input type="text" name="y" placeholder="col" maxlength=2>
+        </div>
+    </div>
+    <input type="submit" value="Turn_over">
+</FORM>
+
+
+
+</body>
+</html>

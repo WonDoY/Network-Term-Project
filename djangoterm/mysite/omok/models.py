@@ -26,7 +26,7 @@ class Queue:
 class Omok(models.Model):
     locate = []
     player = 0
-    inrow = models.Integer
+    
     row, col = -1,-1
     Winner=False
     running =True
