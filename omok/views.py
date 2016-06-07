@@ -1,8 +1,48 @@
-#views.py
+﻿from django.shortcuts import render
+from .models import Omok
+from django.http import HttpResponse
+from django.http import HttpResponseRedirect
+user_1 = ""
+# Create your views here.
+def index(request): # index 이름 바꾸기 나중
+	return render(request, 'omok/index.html') #닉네임 부분
+
+def out(request, Id, name): # out 이름 바꾸기 나중 
+	I = UserInfo.objects.get(id=name)
+	room = RoomInfo.objects.get(id=int(Id))
+	potal = {'room' : room, 'I': I }	
+	if request.POST.get('OK') : 
+		room.user_2 = 'none'
+		room.pull = 1
+		room.save()
+	return render(request, 'omok/out.html',potal) #방나가
+
+def not_name(request): # index_ing 이름 바꾸기 나중에 
+	if request.POST.get('title') == '':
+		return render(request,'omok/not_name.html')
+   
+	else:
+		str = request.POST.get('title', False)
+		UserInfo.objects.create(name=str)
+		user = UserInfo.objects.get(name=str)
+		request.session['user_id']=request.POST['title']
+		user.one_or_two = 2
+		user.save()
+		return HttpResponseRedirect("/main/{}/".format(user.id))
+
+def main(request, name):
+	room = RoomInfo.objects.filter(full=1)
+	I = UserInfo.objects.get(id=name)  
+	potal = {'rooms':room, 'I':I }
+	return render(request, 'omok/main.html', potal)
+   
+def make(request,myname):
+
+	me=UserInfo.objects.get(id=myname)
+	context={'me':me}
+	return render(request, 'omok/make.html', context)
 
 
-ready=0;
-user1=""
 def omok(request, room_id, myname):
 	global ready
 	
