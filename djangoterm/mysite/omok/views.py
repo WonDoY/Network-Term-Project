@@ -327,9 +327,9 @@ def index_ing(request): # index_ing 이름 바꾸기 나중에
         return render(request,'omok/index_ing.html')
    
     else:
-        str = request.POST.get('title', False)
-        UserInfo.objects.create(name=str)
-        user = UserInfo.objects.get(name=str)
+        string = request.POST.get('title', False)
+        UserInfo.objects.create(name=string)
+        user = UserInfo.objects.get(name=string)
         request.session['user_id']=request.POST['title']
         user.count = 2
         user.save()
@@ -362,7 +362,7 @@ def omok(request, room_id, myname):
     omok=omokBoard.objects.filter(room_number=room_id)
 
     if(omok):
-        #str=request.POST.get('move', False)
+        ###modify
         load=omok[0].board
 
         index=0
@@ -373,7 +373,7 @@ def omok(request, room_id, myname):
                 index+=1
         # save board load
 
-        context={'board':board,'str':str,'room':room,'me':me}
+        context={'board':board,'str':string,'room':room,'me':me}
         
         return render(request, 'omok/omok.html',context)
 
@@ -391,244 +391,12 @@ def omok(request, room_id, myname):
         
         return render(request, 'omok/omok.html',context)
 
+player=0
 def omok_ing(request, room_id, myname):
-
+    global player
 
     me = UserInfo.objects.get(id=myname)
     # 위치 입력 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     place=request.POST.get('pos', False)
@@ -649,28 +417,49 @@ def omok_ing(request, room_id, myname):
     index=0    
     for row in range(13):
         for col in range(13):
-            board[row][col]=load[index]
+            board[row][col]=int(load[index])
             index+=1
     # match up
 
 
-    place = place.split()
-    pos_r = int(place[0])
-    pos_c = int(place[1])
+    place = [int(x) for x in place.split()]
+    pos_r, pos_c = place[0], place[1]
     
+    ####
+    #room = RoomInfo.objects.get(name=myname)
+
+    #
+    room = RoomInfo.objects.get(user1=myname)
+    
+    ####
     #piece와 place을 인자로 받아 piece의 place동작이 올바른 동작인지 판별하는 함수 필요
     #동작이 적절하면 아래 실행
 
     ## 수를 놓는다. user 의 no 을 알아야함.
+    error=True
     if(isSize(pos_r) and isSize(pos_c) and isEmpty(pos_r,pos_c,room_id)):
-        if(checkRule(0,pos_r-1,pos_c-1)): #
-            board[pos_r][pos_c] = 0
+        if(player==0):
+            if(board[pos_r][pos_c]!=5):
+                if(checkRule(player,pos_r-1,pos_c-1)): #
+                    board[pos_r][pos_c] = player
+                    error=false
+        else : # p;ayer == 1 white
+            if(board[pos_r][pos_c]!=5):
+                board[pos_r][pos_c] = player
+                error=false
+
+    # 입력받은 것을 처리한다. 
+
+    if(error):
+        return HttpResponseRedirect("/room/{}/omok/{}".format(room_id, me.id))
 
 
-
-
-    
-
+#####################
+    if( checkWin(player,pos_r-1,pos_c-1,room_id) ):
+        string=str(player)+" is Winner"
+        context={"msg":string}
+        return HttpResponseRedirect("/room/{}/omok/{}".format(room_id, me.id),context)
+######################
     
     loader=""
     for i in board:
@@ -679,6 +468,7 @@ def omok_ing(request, room_id, myname):
 
     omok.board = loader
     omok.save()
+    player = (player+1)%2
 
 
     return HttpResponseRedirect("/room/{}/omok/{}".format(room_id, me.id))
@@ -691,13 +481,13 @@ def make_ing(request, myname):
    user.count = 1
 
 
-   str = request.POST.get('roomname', False)
+   string = request.POST.get('roomname', False)
 
 
-   RoomInfo.objects.create(name=str)
+   RoomInfo.objects.create(name=string)
 
 
-   room = RoomInfo.objects.get(name=str)
+   room = RoomInfo.objects.get(name=string)
 
 
    room.user1 = user.name

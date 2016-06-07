@@ -10,6 +10,7 @@ class omokBoard(models.Model):
 # player 정보 class명 PlayerInfo
 class UserInfo(models.Model):
     name = models.CharField(max_length = 15)
+       
     count = 0
 
     def __str__(self):
