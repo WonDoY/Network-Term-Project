@@ -88,7 +88,7 @@ class queue:
 #stack list를 사용 해서 넣을 경우 .append(argv) / .pop()
 #
 #구현 check win
-"""
+
 def checkWin(P,row,col,room_id):# P:Player
 
     
@@ -118,7 +118,7 @@ def checkWin(P,row,col,room_id):# P:Player
     visit=[[0 for x in range(13)] for y in range(13)]
     visit[row][col]=1
     while (not QXX.isEmpty()):#-        
-        ROW,COL=QXX.pop(     
+        ROW,COL=QXX.pop() 
         cnt=cnt+1
         
 
@@ -127,11 +127,6 @@ def checkWin(P,row,col,room_id):# P:Player
                 visit[ROW][COL-1]=1;QXX.push(ROW,COL-1)
         except:
             print()
-
-
-
-
-
 
         try:
             if(board[ROW][COL+1]==P and visit[ROW][COL+1]==0 and COL+1<=12):
@@ -307,7 +302,7 @@ def checkRule(P,row,col,room_id):
     if(Rule4>=2): return False
     if(Rule3>=2): return False
     return True  
-"""
+
 def index(request): 
     return render(request, 'omok/index.html') #닉네임 부분
 
