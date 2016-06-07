@@ -113,6 +113,49 @@ def chess_ing(request, room_id, myname):
 
 
 
+
+def make(request,myname):
+
+	me=UserInfo.objects.get(id=myname)
+	context={'me':me}
+
+
+	
+	return render(request, 'omok/make.html', context)
+   
+
+
+
+
+def make_ing(request, myname):
+
+   user = UserInfo.objects.get(name=request.session['user_id'])
+
+
+   user.one_or_two = 1
+
+
+   str = request.POST.get('roomname', False)
+
+
+   RoomInfo.objects.create(name=str)
+
+
+   room = RoomInfo.objects.get(name=str)
+
+
+   room.user1 = user.name
+
+
+   room.save()
+
+
+   context = {'roominform' : room , 'room_no' : room.id }
+   
+   
+   return HttpResponseRedirect("/room/{}/{}".format(room.id, myname))
+
+
 def room(request, room_id, myname):
 
 	
