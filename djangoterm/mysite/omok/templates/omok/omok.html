@@ -110,7 +110,7 @@
 	  <div id="jb-sidebar-left-3">
 	    <form action="/room/{{room.id}}/omok/ing/{{me.id}}/" method="POST">{%csrf_token%}
 		돌을 놓을 좌표 입력  
-		<input type="text" name="move" style="width: 500px; height:25px" value="좌표 입력"/>
+		<input type="text" name="pos" style="width: 500px; height:25px" value="좌표 입력"/>
 		<button type="submit"  style="width: 80px; height:30px" > 돌 놓기 </button>
 		</form>
       </div>

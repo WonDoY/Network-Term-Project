@@ -17,7 +17,7 @@ class RoomInfo(models.Model):
 
 # 게임판 정보 board, num는 방 번호    
 class omokBoard(models.Model):
-    board = models.TextField()
+    board = models.TextField(max_length = 200)
     room_num = models.IntegerField(default=0)
 
 class RoomMaster(models.Model):
