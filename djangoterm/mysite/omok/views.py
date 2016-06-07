@@ -328,7 +328,7 @@ def not_name(request): # index_ing 이름 바꾸기 나중에
         UserInfo.objects.create(name=str)
         user = UserInfo.objects.get(name=str)
         request.session['user_id']=request.POST['title']
-        user.one_or_two = 2
+        user.count = 2
         user.save()
         return HttpResponseRedirect("/main/{}/".format(user.id))
 
@@ -450,7 +450,7 @@ def make_ing(request, myname):
    user = UserInfo.objects.get(name=request.session['user_id'])
 
 
-   user.one_or_two = 1
+   user.count = 1
 
 
    str = request.POST.get('roomname', False)

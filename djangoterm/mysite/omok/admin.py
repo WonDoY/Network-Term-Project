@@ -1,11 +1,11 @@
 from django.contrib import admin
-from .models import PlayerInfo
-from .models import Room
-from .models import Board
+from .models import omokBoard, UserInfo, RoomInfo
+
 # Register your models here.
 
 # Omok Object
 
-admin.site.register(PlayerInfo)
-admin.site.register(Room)
-admin.site.register(Board)
+
+admin.site.register(omokBoard)
+admin.site.register(UserInfo)
+admin.site.register(RoomInfo)
