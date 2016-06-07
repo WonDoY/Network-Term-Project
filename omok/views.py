@@ -47,22 +47,13 @@ def omok(request, room_id, myname):
 		return render(request, 'omok/omok.html',context)
 
 
-def chess_ing(request, room_id, myname):
+def omok_ing(request, room_id, myname):
 	me = UserInfo.objects.get(id=myname)
 	# 위치 입력 
 	place=request.POST.get('move', False)
 	# move->pos
 	
-	'''
-	board=[['b','c','d','e','f','d','c','b'],
-			['a','a','a','a','a','a','a','a'],
-			['x','x','x','x','x','x','x','x'],
-			['x','x','x','x','x','x','x','x'],
-			['x','x','x','x','x','x','x','x'],
-			['x','x','x','x','x','x','x','x'],
-			['g','g','g','g','g','g','g','g'],
-			['h','i','j','k','l','j','i','h']]
-	'''
+
 
 	# gomoku board init
 	board = [[5 for i in range(13)] for j in range(13)] 
@@ -120,7 +111,7 @@ def make(request,myname):
 	context={'me':me}
 
 
-	
+
 	return render(request, 'omok/make.html', context)
    
 
