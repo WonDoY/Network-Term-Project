@@ -55,6 +55,14 @@
         float: left;
         border: 1px solid #bcbcbc;
 	  }
+	  #jb-sidebar-left-4 {
+		width: 325px;
+        
+        margin-right: 25px;
+        margin-bottom: 25px;
+        float: left;
+        border: 1px solid #030303;
+	  }
       #jb-sidebar-right {
         width: 300px;
         padding: 20px;
@@ -63,6 +71,13 @@
         float: right;
         border: 1px solid #bcbcbc;
       }
+	  #imgsize {
+		width: 25px;
+		height:25px;
+		float: left;
+		border: none;
+		
+	  }
       #jb-footer {
         clear: both;
 		
@@ -84,21 +99,31 @@
 		
       </div>
       <div id="jb-sidebar-left">
-        
+        <div id="jb-sidebar-left-4">
 		{% for i in board %}
         {% for j in i %}
           {% if j == 5 %} 
-            
+		    <div id="imgsize">
+            <img src="https://github.com/WonDoY/Network-Term-Project/blob/master/djangoterm/mysite/omok/templates/omok/cross.png?raw=true"
+			height="25px" width="25px" vspace="0" hspace="0" style="border:none" />
+			</div>
           {% endif %}
           {% if j == 0 %} 
-            0
+		  <div id="imgsize">
+            <img src="https://github.com/WonDoY/Network-Term-Project/blob/master/djangoterm/mysite/omok/templates/omok/cross.png?raw=true"
+			height="25px" width="25px" vspace="0" hspace="0" style="border:none" />
+		  </div>
           {% endif %}
           {% if j == 1 %} 
-            1
+		  <div id="imgsize">
+            <img src="https://github.com/WonDoY/Network-Term-Project/blob/master/djangoterm/mysite/omok/templates/omok/cross.png?raw=true"
+			height="25px" width="25px" vspace="0" hspace="0" style="border:none" />
+		  </div>
           {% endif %}
         {% endfor %}
         <br>
-      {% endfor %}    
+      {% endfor %}   
+		</div>
       </div>
 	 
 	  <div id="jb-sidebar-right">
