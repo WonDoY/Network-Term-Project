@@ -325,15 +325,35 @@ def index(request):
 
 
 
-def out(request, Id, name): # out 이름 바꾸기 나중 
-    me = UserInfo.objects.get(id=name)
-    room = RoomInfo.objects.get(id=int(Id))
-    potal = {'room' : room, 'me': me }  
-    if request.POST.get('OK') : 
+def out(request, room_id, myname): # out 
+    me = UserInfo.objects.get(id=myname)
+    room = RoomInfo.objects.get(id=int(room_id))
+    context = {'room' : room, 'me': me }  
+    if(room.full == 2 and room.user1 != me.name):
+        room.user1 = me.name
         room.user2 = 'none'
         room.full = 1
         room.save()
-    return render(request, 'omok/out.html',potal) #방나가
+        return render(request, 'omok/out.html',context) #방나가
+    elif(room.full == 2 and room.user2 != me.name):
+        room.user1 = 'none'
+        room.user2 = me.name
+        room.full = 1
+        room.save()
+        return render(request, 'omok/out.html',context) #방나가
+
+    elif(room.full == 1 and room.user1 != me.name):
+        room.user1 = 'none'
+        room.user2 = 'none'
+        room.full = 0
+        room.save()
+        return render(request, 'omok/out.html',context) #방나가
+    elif(room.full == 1 and room.user2 != me.name):
+        room.user1 = 'none'
+        room.user2 = 'none'
+        room.full = 0
+        room.save()
+        return render(request, 'omok/out.html',context) #방나가
 
 
 
