@@ -19,7 +19,7 @@
         border: 1px solid #bcbcbc;
       }
       #jb-sidebar-left {
-        width: 500px;
+        width: 400px;
         padding: 20px;
 		
         margin-right: 20px;
@@ -37,7 +37,7 @@
       }
 	  
 	  #jb-sidebar-left-2 {
-		width: 160px;
+		width: 380px;
         padding: 20px;
 
         margin-right: 20px;
@@ -53,8 +53,17 @@
         float: left;
         border: 1px solid #030303;
 	  }
+	   #jb-sidebar-left-5 {
+		width: 380px;
+        padding: 20px;
+
+        margin-right: 20px;
+        margin-bottom: 0px;
+        float: left;
+        border: 1px solid #bcbcbc;
+	  }
       #jb-sidebar-right {
-        width: 300px;
+        width: 420px;
         padding: 20px;
 		
         margin-bottom: 20px;
@@ -116,6 +125,16 @@
 			<img src="https://github.com/WonDoY/Network-Term-Project/blob/master/djangoterm/mysite/omok/templates/omok/white%20stone2.png?raw=true" height="15px" width="15px" vspace="0" hspace="0" style="border:none"/>
 			<t> : {{room.user2}} </t>
         </div>
+		
+		<div id="jb-sidebar-left-5">
+			<h4> omok 규칙 </h4>
+			- 흑이 먼저 시작<br>
+			- 돌을 놓을 좌표를 입력하고 돌 놓기 버튼을 누른다<br>
+			- 흑과 백이 교대로 돌을 하나씩 놓는다<br>
+			- 승리 조건 : 가로, 세로, 대각선으로 연속된 5개의 돌을 이었을 때<br>
+			- 금수 : 33금수, 44금수<br>		
+			- 예외 : 가로, 세로, 대각선으로 연속된 6개 이상의 돌을 이었을 때 승리 조건으로 취급하지 않는다<br>
+		</div>
 	  </div>
      
       <div id="jb-footer">
