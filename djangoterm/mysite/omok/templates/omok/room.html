@@ -45,7 +45,14 @@
         float: left;
         border: 1px solid #bcbcbc;
 	  }
-	  
+	  #jb-sidebar-left-3 {
+		width: 260px;
+        padding: 20px;
+        margin-right: 20px;
+        margin-bottom: 20px;
+        float: left;
+        border: 1px solid #030303;
+	  }
       #jb-sidebar-right {
         width: 300px;
         padding: 20px;
@@ -65,19 +72,20 @@
 {% load staticfiles %}
 <body>
      <div id="jb-container">
-      <div id="jb-header">
-        
-		<h1 align="center">신의 한 수 : 오목 게임</h1>
+       <div id="jb-header">
+         
+		 <h1 align="center">신의 한 수 : 오목 게임</h1>
 		
-		<p> {{room.name}} </p>		
+		  <p> {{room.name}} </p>		
 		
-      </div>
-      <div id="jb-sidebar-left">
-        
+       </div>
+     <div id="jb-sidebar-left">
+        <div id="jb-sidebar-left-3">
 		{% for i in board %}
         {% for j in i %}
           {% if j == 5 %} 
-            5
+            <img src="https://github.com/WonDoY/Network-Term-Project/blob/master/djangoterm/mysite/omok/templates/omok/board.png?raw=true"  
+			height="20px", width="20px"/>
           {% endif %}
           {% if j == 0 %} 
             0
@@ -88,7 +96,8 @@
         {% endfor %}
         <br>
       {% endfor %}   
-      </div>
+	    </div>
+     </div>
 	 
 	  <div id="jb-sidebar-right">
 		<div id="jb-sidebar-left-2">
