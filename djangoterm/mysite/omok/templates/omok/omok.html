@@ -19,7 +19,7 @@
         border: 1px solid #bcbcbc;
       }
       #jb-sidebar-left {
-        width: 500px;
+        width: 400px;
         padding: 20px;
 		
         margin-right: 20px;
@@ -57,9 +57,11 @@
 	  }
 	  #jb-sidebar-left-4 {
 		width: 325px;
-        
-        margin-right: 25px;
-        margin-bottom: 25px;
+        height:325px;
+        margin-right: 0px;
+        margin-bottom: 0px;
+		margin-top: 0px;
+		margin-left:0px;
         float: left;
         border: 1px solid #030303;
 	  }
@@ -80,6 +82,26 @@
         float: right;
         border: 1px solid #bcbcbc;
       }
+	  #row-position {
+		width: 350px;
+		height: 25px;
+		margin-bottom: 0px;
+		margin-top: 25px;
+		float:left;
+		margin-right: 25px;
+		margin-left:25px;
+		
+	  }
+	  #col-position {
+		height: 325px;
+		width: 25px;
+		margin-right: 0px;
+		margin-bottom: 25px;
+		margin-top: 0px;
+		margin-left: 25px;
+		float: left;
+		
+	  }
 	  #imgsize {
 		width: 25px;
 		height:25px;
@@ -108,8 +130,95 @@
 		
       </div>
       <div id="jb-sidebar-left">
+		<div id="row-position">
+		<center>
+		    <div id="imgsize">
+				<t>  </t>
+			</div>
+			<div id="imgsize">
+				<t> 1</t>
+			</div>
+			<div id="imgsize">
+				<t> 2</t>
+			</div>
+			<div id="imgsize">
+				<t> 3</t>
+			</div>
+			<div id="imgsize">
+				<t> 4</t>
+			</div>
+			<div id="imgsize">
+				<t> 5</t>
+			</div>
+			<div id="imgsize">
+				<t> 6</t>
+			</div>
+			<div id="imgsize">
+				<t> 7</t>
+			</div>
+			<div id="imgsize">
+				<t> 8</t>
+			</div>
+			<div id="imgsize">
+				<t> 9</t>
+			</div>
+			<div id="imgsize">
+				<t>10</t>
+			</div>
+			<div id="imgsize">
+				<t>11</t>
+			</div>
+			<div id="imgsize">
+				<t>12</t>
+			</div>
+			<div id="imgsize">
+				<t>13</t>
+			</div>
+			</center>
+		</div>
+		<div id="col-position">
+			<div id="imgsize">
+				<t>1</t>
+			</div>
+			<div id="imgsize">
+				<t>2</t>
+			</div>
+			<div id="imgsize">
+				<t>3</t>
+			</div>
+			<div id="imgsize">
+				<t>4</t>
+			</div>
+			<div id="imgsize">
+				<t>5</t>
+			</div>
+			<div id="imgsize">
+				<t>6</t>
+			</div>
+			<div id="imgsize">
+				<t>7</t>
+			</div>
+			<div id="imgsize">
+				<t>8</t>
+			</div>
+			<div id="imgsize">
+				<t>9</t>
+			</div>
+			<div id="imgsize">
+				<t>10</t>
+			</div>
+			<div id="imgsize">
+				<t>11</t>
+			</div>
+			<div id="imgsize">
+				<t>12</t>
+			</div>
+			<div id="imgsize">
+				<t>13</t>
+			</div>
+		</div>
         <div id="jb-sidebar-left-4">
-		{% for i in board %}
+		{% for i in board %} <!-- board = 13 -->
         {% for j in i %}
           {% if j == 5 %} 
 		    <div id="imgsize">
@@ -142,7 +251,7 @@
         </div>
 		
 		<div id="jb-sidebar-left-5">
-			<h1>{{message}}</h1>
+			<t>{{message}}</t>
 		</div>
 	  </div>
 	
