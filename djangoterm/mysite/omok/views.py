@@ -453,6 +453,7 @@ def omok_ing(request, room_id, myname):
         msg = "You Lose"
         terminate = 0
         player = 0
+        turn = -1
         return HttpResponse(msg)
 
 
