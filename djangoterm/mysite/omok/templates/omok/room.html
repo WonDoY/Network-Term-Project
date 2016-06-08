@@ -4,7 +4,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="refresh" content="5">
+<meta http-equiv="refresh" content="15">
 <title>신의 한 수</title>
     <style>
       #jb-container {
@@ -109,8 +109,12 @@
 	 
 	  <div id="jb-sidebar-right">
 		<div id="jb-sidebar-left-2">
-			<t> 흑돌 : {{room.user1}} </t><br>
-			<t> 백돌 : {{room.user2}} </t>
+			<t> 흑돌 </t>
+			<img src="https://github.com/WonDoY/Network-Term-Project/blob/master/djangoterm/mysite/omok/templates/omok/black%20stone2.png?raw=true" height="15px" width="15px" vspace="0" hspace="0" style="border:none"/>
+			<t> : {{room.user1}} </t><br>
+			<t> 백돌 </t>
+			<img src="https://github.com/WonDoY/Network-Term-Project/blob/master/djangoterm/mysite/omok/templates/omok/white%20stone2.png?raw=true" height="15px" width="15px" vspace="0" hspace="0" style="border:none"/>
+			<t> : {{room.user2}} </t>
         </div>
 	  </div>
      
@@ -119,8 +123,8 @@
 		  <a href="/room/{{room.id}}/room_to_omok/{{me.id}}/">
 			<button style="width: 80px; height:30px" >게임시작</button>
 		  </a>
-		  <a href="/main/{{me.id}}/">
-			<button style="width: 80px; height:30px" >방 목록</button>
+		  <a href="/room/{{room.id}}/{{me.id}}/out">
+            <button style="width: 80px; height:30px" >나가기</button>
 		  </a>
 		</center>
       </div>
