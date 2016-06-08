@@ -47,7 +47,12 @@ def isSize(n): # 놓은 위치가 맞는지 확인
     return False
 
 
-def isEmpty(row,col,room_id):
+
+#board init
+board = [[5 for x in range(13)] for y in range(13)]
+
+def isEmpty(row,col):
+    """
     board = [[5 for i in range(13)] for j in range(13)] 
     
 
@@ -64,7 +69,7 @@ def isEmpty(row,col,room_id):
             
             board[row][col]=int(load[index])
             index+=1
-
+    """
 # 플레이어 돌은 0과 1 이므로 2보다크면빈자리
     if(board[row-1][col-1]>2):
         return True 
@@ -93,7 +98,7 @@ class queue:
 #
 #구현 check win
 
-def checkWin(P,row,col,room_id):# P:Player
+def checkWin(P,row,col):# P:Player
 
     
     QXX=queue(row,col)#-
@@ -101,7 +106,7 @@ def checkWin(P,row,col,room_id):# P:Player
     QYX=queue(row,col)#/
     QYY=queue(row,col)#|
     
-    
+    """
     board = [[5 for i in range(13)] for j in range(13)] 
     
 
@@ -118,7 +123,7 @@ def checkWin(P,row,col,room_id):# P:Player
             
             board[row][col]=int(load[index])
             index+=1
-
+    """
 
     cnt=0
     visit=[[0 for x in range(13)] for y in range(13)]
@@ -197,7 +202,7 @@ def checkWin(P,row,col,room_id):# P:Player
     return False
 # 미구현
 # 막힌 수, 띄어진 수 구현 안됨. 
-def checkRule(P,row,col,room_id):
+def checkRule(P,row,col):
     
     
     Rule3 = 0 # 막히지 않은 3
@@ -231,7 +236,7 @@ def checkRule(P,row,col,room_id):
     
     row_rightup=row-1; col_rightup=col+1;
     
-
+    """
     board = [[5 for i in range(13)] for j in range(13)] 
     
 
@@ -248,7 +253,7 @@ def checkRule(P,row,col,room_id):
             
             board[row][col]=int(load[index])
             index+=1
-
+    """
 
 
 
@@ -311,6 +316,9 @@ def checkRule(P,row,col,room_id):
     if(Rule3>=2): return False
     return True  
 
+
+
+
 def index(request): 
     return render(request, 'omok/index.html') #닉네임 부분
 
@@ -356,30 +364,51 @@ def make(request,myname):
     context={'me':me}
     return render(request, 'omok/make.html', context)
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 def omok(request, room_id, myname):
     global ready
     
     # me 이름 매칭 가져옴 DB
     me = UserInfo.objects.get(id=myname)
-    # 
+    #MYNAME 의 UserInfo 를 가져와서 me 에 저장한다. 
+     
     room = RoomInfo.objects.get(id=int(room_id))
+    # room_id 와 matching RoomInfo load -> room
 
-    board = ['5' for i in range(169)] 
-
+    #board = ['5' for i in range(169)] 
+    #board 
 
     omok=omokBoard.objects.filter(room_num=room_id)
+    # 존재 유무만 확인 
 
     if(omok):
         
-        load=omok[0].board
+        #load=omok[0].board
 
-        index=0
+        #index=0
         ## Exception Value: 
         ## 'str' object does not support item assignment
         
-        for index in range(169):
-                board[index] = str(load[index])
-                
+        #for index in range(169):
+        #       board[index] = str(load[index])
+        #        
         # save board load
 
         context={'board':board,'room':room,'me':me}
@@ -399,6 +428,8 @@ def omok(request, room_id, myname):
         context={'board':board,'room':room,'me':me}
         
         return render(request, 'omok/omok.html',context)
+
+# db 로 잘 안되면 views.py 에 변수로 저장해서 해보자 
 player=0
 def omok_ing(request, room_id, myname):
     global player
@@ -411,15 +442,14 @@ def omok_ing(request, room_id, myname):
     # ->pos
     
 
-
+    """
     # gomoku board init
     board = [[5 for i in range(13)] for j in range(13)] 
     
 
 
-    Omok=omokBoard.objects.filter(room_num=room_id)
-    omok=Omok[0]
-    load=omok.board
+    omok=omokBoard.objects.get(room_num=room_id)    
+    load=omok[0].board
 
     
     index=0    
@@ -428,11 +458,11 @@ def omok_ing(request, room_id, myname):
         for col in range(13):            
             board[row][col]=int(load[index])
             index+=1
-
+    """
 
     # match up
 
-    inputerr=True
+    
 
     place = [int(x) for x in place.split()]
     pos_r, pos_c = place[0], place[1]
@@ -444,39 +474,40 @@ def omok_ing(request, room_id, myname):
 
     ## 수를 놓는다. user 의 no 을 알아야함.
     error=True
-    if(isSize(pos_r) and isSize(pos_c) and isEmpty(pos_r,pos_c,room_id)):
+    if(isSize(pos_r) and isSize(pos_c) and isEmpty(pos_r,pos_c)):
         if(player==0):
             if(board[pos_r][pos_c]!=5):
                 if(checkRule(player,pos_r-1,pos_c-1)): #
                     board[pos_r][pos_c] = player
                     error=False
-        else : # p;ayer == 1 white
+        else : # player == 1 white
             if(board[pos_r][pos_c]!=5):
                 board[pos_r][pos_c] = player
                 error=False
-
+    board[pos_r][pos_c] = player        
     if(error):
-        return HttpResponseRedirect("/room/{}/omok/{}".format(room_id, me.id))             
+        context={"board":board}
+        return HttpResponseRedirect("/room/{}/omok/{}".format(room_id, me.id),context)          
 
     #####################
-    if( checkWin(player,pos_r-1,pos_c-1,room_id) ):
+    if( checkWin(player,pos_r-1,pos_c-1) ):
         string=str(player)+" is Winner"
-        context={"msg":string}
+        context={"msg":string,"board":board}
         return HttpResponseRedirect("/room/{}/omok/{}".format(room_id, me.id),context)
 ######################
     
 
     
-    loader=""
-    for i in board:
-        for j in i:
-            loader=loader+str(j)
+    #loader=""
+    #for i in board:
+    #    for j in i:
+    #       loader=loader+str(j)
 
-    omok.board = loader
-    omok.save()
-
-
-    return HttpResponseRedirect("/room/{}/omok/{}".format(room_id, me.id))
+    #omok.board = loader
+    #omok.save()
+    context={"board":board}
+    return HttpResponseRedirect("/room/{}/omok/{}".format(room_id, me.id),context)
+    #return HttpResponseRedirect("/room/{}/omok/{}".format(room_id, me.id))
 
 def make_ing(request, myname):
 
