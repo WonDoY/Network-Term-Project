@@ -431,15 +431,31 @@ def omok(request, room_id, myname):
 
 # db 로 잘 안되면 views.py 에 변수로 저장해서 해보자 
 player=0
-
+terminate=0
+turn=-1
+winner=0
 def omok_ing(request, room_id, myname):
     global player
+    global terminate
+    global turn
+    global board
+    global winner
     
     me = UserInfo.objects.get(id=myname)
-    # 위치 입력 
+    
 
 
-    place=request.POST['pos']
+
+## Loser## Loser## Loser## Loser## Loser## Loser## Loser## Loser## Loser## Loser## Loser
+## Loser## Loser## Loser## Loser## Loser## Loser## Loser## Loser## Loser## Loser## Loser
+    if(terminate==1 and winner != (player+1)%2 ):
+        board = [[5 for x in range(13)] for y in range(13)]  
+        msg = "You Lose"
+        terminate = 0
+        player = 0
+        return render(request, "omok/lose.html")
+
+
     # ->pos
     
 
@@ -464,6 +480,9 @@ def omok_ing(request, room_id, myname):
     # match up
     msg="not"
     
+## POST INPUT POS
+    place=request.POST['pos']
+
     try:
         place = [int(x) for x in place.split()]
         pos_r, pos_c = place[0], place[1]
@@ -484,17 +503,26 @@ def omok_ing(request, room_id, myname):
     # 틀안 의 위치 
         if(isEmpty(pos_r,pos_c)):
         # 비어있는 자리
-            if(player==0):
+            if(player==0 and turn!=me.id):
+
             # (0, black)
+            # 이름이 같지 않을 때 놓을 수 있다.
+
                 if(checkRule(player,pos_r-1,pos_c-1)): #
+                    ### turn 
+                    turn = me.id
+                    ####
                 # (black, checkRule)
                     board[pos_r-1][pos_c-1] = player
                     error=False
                     msg ="백돌 차례입니다. "
                     player=(player+1)%2
                     
-            elif(player==1):
-            # (1,white)            
+            elif(player==1 and turn != me.id):
+            # (1,white)     
+                ### turn        
+                turn = me.id
+                ###
                 board[pos_r-1][pos_c-1] = player
                 error=False
                 msg = "흑돌 차례입니다."
@@ -515,11 +543,25 @@ def omok_ing(request, room_id, myname):
         return HttpResponseRedirect("/room/{}/omok/{}".format(room_id, me.id),context)          
         #return HttpResponse("1")
     #####################
-    if( checkWin(player,pos_r-1,pos_c-1) ):
-        msg=str(player)+" is Winner"
-        context={"message":msg,"board":board,"player":player}
-        return HttpResponseRedirect("/room/{}/omok/{}".format(room_id, me.id),context)
-######################
+
+    
+
+
+## Winner ## Winner ## Winner ## Winner ## Winner ## Winner ## Winner ## Winner 
+## Winner ## Winner ## Winner ## Winner ## Winner ## Winner ## Winner ## Winner 
+    if( checkWin((player+1)%2,pos_r-1,pos_c-1) ):
+        if((player+1)%2 == 0) :
+            msg = "Player 1 Black is Winner"
+            winner = 0
+        else:
+            msg = "Player 2 White is Winner"
+            winner = 1
+        
+        terminate = 1    
+
+        return render(request, "omok/victory.html")
+
+
     
     context={"board":board,"message":msg,"player":player}
     #return HttpResponse(player)
