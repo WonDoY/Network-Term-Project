@@ -469,7 +469,7 @@ def omok_ing(request, room_id, myname):
         pos_r, pos_c = place[0], place[1]
     except:
         msg="잘못된 입력입니다."
-        context={"message":msg,"board":board}
+        context={"message":msg,"board":board,"player":player}
         
         return HttpResponseRedirect("/room/{}/omok/{}".format(room_id, me.id),context)
 
@@ -510,18 +510,18 @@ def omok_ing(request, room_id, myname):
         
     if(error):
 
-        context={"message":msg,"board":board}
+        context={"message":msg,"board":board,"player":player}
 
         return HttpResponseRedirect("/room/{}/omok/{}".format(room_id, me.id),context)          
         #return HttpResponse("1")
     #####################
     if( checkWin(player,pos_r-1,pos_c-1) ):
         msg=str(player)+" is Winner"
-        context={"message":msg,"board":board}
+        context={"message":msg,"board":board,"player":player}
         return HttpResponseRedirect("/room/{}/omok/{}".format(room_id, me.id),context)
 ######################
     
-    context={"board":board,"message":msg}
+    context={"board":board,"message":msg,"player":player}
     #return HttpResponse(player)
     return HttpResponseRedirect("/room/{}/omok/{}".format(room_id, me.id),context)
     #return HttpResponseRedirect("/room/{}/omok/{}".format(room_id, me.id))
