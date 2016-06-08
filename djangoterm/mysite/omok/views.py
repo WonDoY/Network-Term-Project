@@ -448,12 +448,12 @@ def omok_ing(request, room_id, myname):
 
 ## Loser## Loser## Loser## Loser## Loser## Loser## Loser## Loser## Loser## Loser## Loser
 ## Loser## Loser## Loser## Loser## Loser## Loser## Loser## Loser## Loser## Loser## Loser
-    if(terminate==1 and winner != (player+1)%2 ):
+    if(terminate==1 ):
         board = [[5 for x in range(13)] for y in range(13)]  
         msg = "You Lose"
         terminate = 0
         player = 0
-        return render(request, "omok/lose.html")
+        return HttpResponse(msg)
 
 
     # ->pos
@@ -559,7 +559,7 @@ def omok_ing(request, room_id, myname):
         
         terminate = 1    
 
-        return render(request, "omok/victory.html")
+        return HttpResponse(msg)
 
 
     
