@@ -431,9 +431,10 @@ def omok(request, room_id, myname):
 
 # db 로 잘 안되면 views.py 에 변수로 저장해서 해보자 
 player=0
+
 def omok_ing(request, room_id, myname):
     global player
-
+    
     me = UserInfo.objects.get(id=myname)
     # 위치 입력 
 
@@ -461,11 +462,16 @@ def omok_ing(request, room_id, myname):
     """
 
     # match up
-
+    msg="not"
     
-
-    place = [int(x) for x in place.split()]
-    pos_r, pos_c = place[0], place[1]
+    try:
+        place = [int(x) for x in place.split()]
+        pos_r, pos_c = place[0], place[1]
+    except:
+        msg="잘못된 입력입니다."
+        context={"message":msg,"board":board}
+        
+        return HttpResponseRedirect("/room/{}/omok/{}".format(room_id, me.id),context)
 
     
     #piece와 place을 인자로 받아 piece의 place동작이 올바른 동작인지 판별하는 함수 필요
@@ -474,38 +480,49 @@ def omok_ing(request, room_id, myname):
 
     ## 수를 놓는다. user 의 no 을 알아야함.
     error=True
-    if(isSize(pos_r) and isSize(pos_c) and isEmpty(pos_r,pos_c)):
-        if(player==0):
-            if(board[pos_r][pos_c]!=5):
+    if(isSize(pos_r) and isSize(pos_c) ):
+    # 틀안 의 위치 
+        if(isEmpty(pos_r,pos_c)):
+        # 비어있는 자리
+            if(player==0):
+            # (0, black)
                 if(checkRule(player,pos_r-1,pos_c-1)): #
-                    board[pos_r][pos_c] = player
+                # (black, checkRule)
+                    board[pos_r-1][pos_c-1] = player
                     error=False
-        else : # player == 1 white
-            if(board[pos_r][pos_c]!=5):
-                board[pos_r][pos_c] = player
+                    msg ="백돌 차례입니다. "
+                    player=(player+1)%2
+                    
+            elif(player==1):
+            # (1,white)            
+                board[pos_r-1][pos_c-1] = player
                 error=False
-    board[pos_r][pos_c] = player        
+                msg = "흑돌 차례입니다."
+                player=(player+1)%2
+        elif(not isEmpty(pos_r,pos_c)):
+            msg = "해당위치는 빈자리가 아닙니다. 잘못된 위치에 놓았습니다."
+    else:
+    # 틀안의 위치를 벗어남 
+        if(player==0):
+            msg = "흑돌 플레이어 ("+myname+") 잘못된 위치에 놓았습니다."
+        elif(player==1):
+            msg = "백돌 플레이어 ("+myname+") 잘못된 위치에 놓았습니다."
+        
     if(error):
-        context={"board":board}
-        return HttpResponseRedirect("/room/{}/omok/{}".format(room_id, me.id),context)          
 
+        context={"message":msg,"board":board}
+
+        return HttpResponseRedirect("/room/{}/omok/{}".format(room_id, me.id),context)          
+        #return HttpResponse("1")
     #####################
     if( checkWin(player,pos_r-1,pos_c-1) ):
-        string=str(player)+" is Winner"
-        context={"msg":string,"board":board}
+        msg=str(player)+" is Winner"
+        context={"message":msg,"board":board}
         return HttpResponseRedirect("/room/{}/omok/{}".format(room_id, me.id),context)
 ######################
     
-
-    
-    #loader=""
-    #for i in board:
-    #    for j in i:
-    #       loader=loader+str(j)
-
-    #omok.board = loader
-    #omok.save()
-    context={"board":board}
+    context={"board":board,"message":msg}
+    #return HttpResponse(player)
     return HttpResponseRedirect("/room/{}/omok/{}".format(room_id, me.id),context)
     #return HttpResponseRedirect("/room/{}/omok/{}".format(room_id, me.id))
 
