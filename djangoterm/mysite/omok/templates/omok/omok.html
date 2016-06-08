@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<meta http-equiv="refresh" content="5">
+<meta http-equiv="refresh" content="10">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>신의 한 수</title>
     <style>
@@ -104,7 +104,7 @@
         
 		<h1 align="center">신의 한 수 : 오목 게임</h1>
 		
-		<p> {{room.name}} </p>		
+		<p> 방 이름 : {{room.name}} </p>		
 		
       </div>
       <div id="jb-sidebar-left">
@@ -125,7 +125,7 @@
           {% endif %}
           {% if j == 1 %} 
 		  <div id="imgsize">
-            <img src="https://github.com/WonDoY/Network-Term-Project/blob/master/djangoterm/mysite/omok/templates/omok/black%20stone.png?raw=true"
+            <img src="https://github.com/WonDoY/Network-Term-Project/blob/master/djangoterm/mysite/omok/templates/omok/white%20stone.png?raw=true"
 			height="25px" width="25px" vspace="0" hspace="0" style="border:none" />
 		  </div>
           {% endif %}
@@ -142,7 +142,7 @@
         </div>
 		
 		<div id="jb-sidebar-left-5">
-			<h1>여기에 게임상태출력</h1>
+			<h1>{{message}}</h1>
 		</div>
 	  </div>
 	
